@@ -1,0 +1,28 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:JsonFormatter"
+             x:Class="JsonFormatter.App">
+    
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme Mode="Dark"/>
+        
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
+        </Style>
+    </Application.Styles>
+    
+    <Application.Resources>
+        <FontFamily x:Key="MainFontFamily">resm:JsonFormatter.Assets.Fonts?assembly=JsonFormatter#Consolas</FontFamily>
+        
+        <SolidColorBrush x:Key="PrimaryColor">#85cfff</SolidColorBrush>
+        <SolidColorBrush x:Key="StringColor">#ff7de9</SolidColorBrush>
+        <SolidColorBrush x:Key="NumberColor">#86de74</SolidColorBrush>
+        <SolidColorBrush x:Key="GreyColor">#939395</SolidColorBrush>
+        <SolidColorBrush x:Key="SelectionBrush">#fff</SolidColorBrush>
+        <SolidColorBrush x:Key="SelectionForegroundBrush">#204e8a</SolidColorBrush>
+    </Application.Resources>
+</Application>

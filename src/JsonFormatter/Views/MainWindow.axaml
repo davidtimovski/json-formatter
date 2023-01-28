@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:JsonFormatter.ViewModels"
+        xmlns:local="using:JsonFormatter.UserControls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="JsonFormatter.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Json Formatter">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="#18181a" />
+        </Style>
+        
+        <Style Selector="TextBlock.property">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+        </Style>
+        <Style Selector="TextBlock.bracket">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+        </Style>
+        
+        <Style Selector="TextBox">
+            <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
+        </Style>
+        
+        <Style Selector="Button.expandCollapseButton">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        
+        <Style Selector="Border.row">
+            <Setter Property="Margin" Value="0 2 0 2" />
+        </Style>
+    </Window.Styles>
+
+    <ScrollViewer>
+        <local:ValueNode DataContext="{Binding Root}" />
+    </ScrollViewer>
+
+</Window>

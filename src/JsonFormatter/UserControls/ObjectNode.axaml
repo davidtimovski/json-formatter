@@ -1,0 +1,59 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:JsonFormatter.ViewModels.UserControls"
+             xmlns:local="using:JsonFormatter.UserControls"
+             x:Class="JsonFormatter.UserControls.ObjectNode">
+
+    <UserControl.Styles>
+        <Style Selector="StackPanel.objectNode TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        
+        <Style Selector="StackPanel.objectNode TextBlock.value">
+            <Setter Property="Height" Value="20" />
+        </Style>
+    </UserControl.Styles>
+
+    <Design.DataContext>
+        <vm:ObjectNodeViewModel />
+    </Design.DataContext>
+
+    <StackPanel Classes="objectNode">
+        <Border Classes="row">
+            <DockPanel>
+                <TextBlock Text="{Binding Indentation}" />
+            
+                <DockPanel IsVisible="{Binding IsProperty}">
+                    <TextBlock Text="{Binding PropertyName}" Classes="property" />
+                    <TextBlock Text=": " Classes="property" />
+                </DockPanel>
+            
+                <DockPanel IsVisible="{Binding !Empty}">
+                    <TextBlock Classes="bracket">{</TextBlock>
+                    <Button Name="ExpandButton" IsVisible="False" Classes="expandCollapseButton">+</Button>
+                    <Button Name="CollapseButton" Classes="expandCollapseButton">-</Button>
+                    <TextBlock Name="CollapsedClosingBracket" IsVisible="False" Classes="bracket">},</TextBlock>
+                </DockPanel>
+            
+                <TextBlock IsVisible="{Binding Empty}" Classes="bracket value">{},</TextBlock>
+            </DockPanel>
+        </Border>
+        
+        <ItemsControl Name="Properties" Items="{Binding Properties}" IsVisible="{Binding !Empty}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:ValueNode DataContext="{Binding}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <Border Name="ClosingBracket" IsVisible="{Binding !Empty}" Classes="row">
+            <DockPanel>
+                <TextBlock Text="{Binding Indentation}" />
+                <TextBlock Classes="bracket">},</TextBlock>
+            </DockPanel>
+        </Border>
+
+    </StackPanel>
+    
+</UserControl>
