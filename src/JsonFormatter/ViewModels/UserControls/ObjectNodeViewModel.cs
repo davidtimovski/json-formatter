@@ -28,32 +28,32 @@ public class ObjectNodeViewModel : ViewModelBase
         Properties.AddRange(properties);
     }
 
-    private string indentation = "";
+    private string indentation = string.Empty;
     public string Indentation
     {
         get => indentation;
-        set => this.RaiseAndSetIfChanged(ref value, indentation);
+        set => this.RaiseAndSetIfChanged(ref indentation, value);
     }
     
     private bool isProperty;
     public bool IsProperty
     {
         get => isProperty;
-        set => this.RaiseAndSetIfChanged(ref value, isProperty);
+        set => this.RaiseAndSetIfChanged(ref isProperty, value);
     }
     
     private string? propertyName;
     public string? PropertyName
     {
         get => propertyName;
-        set => this.RaiseAndSetIfChanged(ref value, propertyName);
+        set => this.RaiseAndSetIfChanged(ref propertyName, value);
     }
 
     private bool empty;
     public bool Empty
     {
         get => empty;
-        set => this.RaiseAndSetIfChanged(ref value, empty);
+        set => this.RaiseAndSetIfChanged(ref empty, value);
     }
 
     public ObservableCollection<ValueNodeViewModel> Properties { get; set; } = new();

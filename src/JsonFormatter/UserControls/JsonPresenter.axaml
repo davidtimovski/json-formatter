@@ -1,0 +1,24 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:JsonFormatter.ViewModels.UserControls"
+             xmlns:local="using:JsonFormatter.UserControls"
+             x:Class="JsonFormatter.UserControls.JsonPresenter">
+
+    <UserControl.Styles>
+        <Style Selector="Border.presenter">
+            <Setter Property="Background" Value="#18181a" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+    </UserControl.Styles>
+
+    <Design.DataContext>
+        <vm:JsonPresenterViewModel />
+    </Design.DataContext>
+
+    <Border Classes="presenter">
+        <ScrollViewer IsVisible="{Binding !Empty}">
+            <local:ValueNode DataContext="{Binding Json}" />
+        </ScrollViewer>
+    </Border>
+
+</UserControl>

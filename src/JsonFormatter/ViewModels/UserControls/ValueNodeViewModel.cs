@@ -71,108 +71,108 @@ public class ValueNodeViewModel : ViewModelBase
         isObjectValue = true;
     }
     
-    private string indentation = "";
+    private string indentation = string.Empty;
     public string Indentation
     {
         get => indentation;
-        set => this.RaiseAndSetIfChanged(ref value, indentation);
+        set => this.RaiseAndSetIfChanged(ref indentation, value);
     }
 
     private bool isProperty;
     public bool IsProperty
     {
         get => isProperty;
-        set => this.RaiseAndSetIfChanged(ref value, isProperty);
+        set => this.RaiseAndSetIfChanged(ref isProperty, value);
     }
     
     private string? propertyName;
     public string? PropertyName
     {
         get => propertyName;
-        set => this.RaiseAndSetIfChanged(ref value, propertyName);
+        set => this.RaiseAndSetIfChanged(ref propertyName, value);
     }
     
     private bool isPrimitive;
     public bool IsPrimitive
     {
         get => isPrimitive;
-        set => this.RaiseAndSetIfChanged(ref value, isPrimitive);
+        set => this.RaiseAndSetIfChanged(ref isPrimitive, value);
     }
     
     private bool isNullValue;
     public bool IsNullValue
     {
         get => isNullValue;
-        set => this.RaiseAndSetIfChanged(ref value, isNullValue);
+        set => this.RaiseAndSetIfChanged(ref isNullValue, value);
     }
     
     private bool isStringValue;
     public bool IsStringValue
     {
         get => isStringValue;
-        set => this.RaiseAndSetIfChanged(ref value, isStringValue);
+        set => this.RaiseAndSetIfChanged(ref isStringValue, value);
     }
     
     private string stringValue;
     public string StringValue
     {
         get => stringValue;
-        set => this.RaiseAndSetIfChanged(ref value, stringValue);
+        set => this.RaiseAndSetIfChanged(ref stringValue, value);
     }
     
     private bool isNumberValue;
     public bool IsNumberValue
     {
         get => isNumberValue;
-        set => this.RaiseAndSetIfChanged(ref value, isNumberValue);
+        set => this.RaiseAndSetIfChanged(ref isNumberValue, value);
     }
     
     private string numberValue;
     public string NumberValue
     {
         get => numberValue;
-        set => this.RaiseAndSetIfChanged(ref value, numberValue);
+        set => this.RaiseAndSetIfChanged(ref numberValue, value);
     }
     
     private bool isBooleanValue;
     public bool IsBooleanValue
     {
         get => isBooleanValue;
-        set => this.RaiseAndSetIfChanged(ref value, isBooleanValue);
+        set => this.RaiseAndSetIfChanged(ref isBooleanValue, value);
     }
     
     private string booleanValue;
     public string BooleanValue
     {
         get => booleanValue;
-        set => this.RaiseAndSetIfChanged(ref value, booleanValue);
+        set => this.RaiseAndSetIfChanged(ref booleanValue, value);
     }
     
     private bool isArrayValue;
     public bool IsArrayValue
     {
         get => isArrayValue;
-        set => this.RaiseAndSetIfChanged(ref value, isArrayValue);
+        set => this.RaiseAndSetIfChanged(ref isArrayValue, value);
     }
 
     private ArrayNodeViewModel arrayValue = new();
     public ArrayNodeViewModel ArrayValue
     {
         get => arrayValue;
-        set => this.RaiseAndSetIfChanged(ref value, arrayValue);
+        set => this.RaiseAndSetIfChanged(ref arrayValue, value);
     }
     
     private bool isObjectValue;
     public bool IsObjectValue
     {
         get => isObjectValue;
-        set => this.RaiseAndSetIfChanged(ref value, isObjectValue);
+        set => this.RaiseAndSetIfChanged(ref isObjectValue, value);
     }
 
     private ObjectNodeViewModel objectValue = new();
     public ObjectNodeViewModel ObjectValue
     {
         get => objectValue;
-        set => this.RaiseAndSetIfChanged(ref value, objectValue);
+        set => this.RaiseAndSetIfChanged(ref objectValue, value);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
 using JsonFormatter.ViewModels.UserControls;
 using ReactiveUI;
 using System.Text.Json;
@@ -11,25 +12,36 @@ public class MainWindowViewModel : ViewModelBase
 {
     public MainWindowViewModel()
     {
-        var input = """{"empty":[],"emptyObj":{},"nullField":null,"id":"0001","type":"donut","name":"Cake","ppu":0.55,"batters":{"batter":[{"id":"1001","type":"Regular"},{"id":"1002","type":"Chocolate"},{"id":"1003","type":"Blueberry"},{"id":"1004","type":"Devil's Food"}]},"topping":[{"id":"5001","type":"None"},{"id":"5002","type":"Glazed"},{"id":"5005","type":"Sugar"},{"id":"5007","type":"Powdered Sugar"},{"id":"5006","type":"Chocolate with Sprinkles"},{"id":"5003","type":"Chocolate"},{"id":"5004","type":"Maple"}]}""";
-
-        if (input == null)
+        OnFormatCommand = ReactiveCommand.Create(FormatJson);
+    }
+    
+    private ReactiveCommand<Unit, Unit> OnFormatCommand { get; }
+    
+    private void FormatJson()
+    {
+        if (input == string.Empty)
         {
-            root = new ValueNodeViewModel(0);
             return;
         }
 
-        var result = JsonNode.Parse(input);
-        root = GetVm(result, 0);
+        try
+        {
+            var result = JsonNode.Parse(input);
+            Presenter = new JsonPresenterViewModel(GetVm(result, 0));
+        }
+        catch
+        {
+            
+        }
     }
-    
+
     private ValueNodeViewModel GetVm(JsonNode? value, short nesting, string? propertyName = null)
     {
         if (value == null)
         {
             return new ValueNodeViewModel(nesting, propertyName);
         }
-        
+
         if (value is JsonArray jArray)
         {
             return GetVmFromArray(jArray, nesting, propertyName);
@@ -39,7 +51,7 @@ public class MainWindowViewModel : ViewModelBase
         {
             return GetVmFromObject(jObject, nesting, propertyName);
         }
-        
+
         var jsonElement = value.GetValue<JsonElement>();
         switch (jsonElement.ValueKind)
         {
@@ -64,19 +76,25 @@ public class MainWindowViewModel : ViewModelBase
         var items = array.Select(x => GetVm(x, itemNesting)).ToList();
         return new ValueNodeViewModel(new ArrayNodeViewModel(items, nesting, propertyName));
     }
-    
+
     private ValueNodeViewModel GetVmFromObject(JsonObject jObject, short nesting, string? propertyName = null)
     {
         var propNesting = (short)(nesting + 1);
         var properties = jObject.Select(property => GetVm(property.Value, propNesting, property.Key)).ToList();
         return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName));
     }
-
-    private ValueNodeViewModel root;
-
-    public ValueNodeViewModel Root
+    
+    private string input = string.Empty;
+    public string Input
     {
-        get => root;
-        set => this.RaiseAndSetIfChanged(ref value, root);
+        get => input;
+        set => this.RaiseAndSetIfChanged(ref input, value);
+    }
+
+    private JsonPresenterViewModel presenter = new();
+    public JsonPresenterViewModel Presenter
+    {
+        get => presenter;
+        set => this.RaiseAndSetIfChanged(ref presenter, value);
     }
 }

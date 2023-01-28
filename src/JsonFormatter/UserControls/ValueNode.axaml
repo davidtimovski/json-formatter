@@ -5,18 +5,15 @@
              x:Class="JsonFormatter.UserControls.ValueNode">
 
     <UserControl.Styles>
-        <Style Selector="Border.valueRow">
-            <Setter Property="Margin" Value="0 3 0 3" />
-        </Style>
         <Style Selector="Border.valueRow:pointerover">
             <Setter Property="Background" Value="#444" />
         </Style>
         
-        <Style Selector="TextBlock">
+        <Style Selector="Panel.valueNode TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         
-        <Style Selector="TextBox">
+        <Style Selector="Panel.valueNode TextBox.value">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Height" Value="20" />
             <Setter Property="MinHeight" Value="20" />
@@ -27,20 +24,22 @@
             <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
             <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" />
         </Style>
-        <Style Selector="TextBox /template/ Border#PART_BorderElement">
+        <Style Selector="Panel.valueNode TextBox.value /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="0" />
         </Style>
-        
-        <Style Selector="TextBox.nullValue">
+        <Style Selector="Panel.valueNode TextBox.value:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="Panel.valueNode TextBox.nullValue">
             <Setter Property="Foreground" Value="{DynamicResource GreyColor}" />
         </Style>
-        <Style Selector="TextBox.stringValue">
+        <Style Selector="Panel.valueNode TextBox.stringValue">
             <Setter Property="Foreground" Value="{DynamicResource StringColor}" />
         </Style>
-        <Style Selector="TextBox.numberValue">
+        <Style Selector="Panel.valueNode TextBox.numberValue">
             <Setter Property="Foreground" Value="{DynamicResource NumberColor}" />
         </Style>
-        <Style Selector="TextBox.boolValue">
+        <Style Selector="Panel.valueNode TextBox.boolValue">
             <Setter Property="Foreground" Value="{DynamicResource NumberColor}" />
         </Style>
     </UserControl.Styles>
@@ -49,8 +48,8 @@
         <vm:ValueNodeViewModel />
     </Design.DataContext>
 
-    <Grid>
-        <Border IsVisible="{Binding IsPrimitive}" Classes="valueRow">
+    <Panel Classes="valueNode">
+        <Border IsVisible="{Binding IsPrimitive}" Classes="row valueRow">
             <DockPanel>
                 <TextBlock Text="{Binding Indentation}" />
             
@@ -59,10 +58,10 @@
                     <TextBlock Text=": " Classes="property" />
                 </DockPanel>
 
-                <TextBox IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased" Text="null" IsReadOnly="True" Classes="nullValue" />
-                <TextBox IsVisible="{Binding IsStringValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding StringValue}" IsReadOnly="True" Classes="stringValue" />
-                <TextBox IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding NumberValue}" IsReadOnly="True" Classes="numberValue" />
-                <TextBox IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding BooleanValue}" IsReadOnly="True" Classes="boolValue" />
+                <TextBox IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased" Text="null" IsReadOnly="True" Classes="value nullValue" />
+                <TextBox IsVisible="{Binding IsStringValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding StringValue}" IsReadOnly="True" Classes="value stringValue" />
+                <TextBox IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding NumberValue}" IsReadOnly="True" Classes="value numberValue" />
+                <TextBox IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding BooleanValue}" IsReadOnly="True" Classes="value boolValue" />
             
                 <TextBlock>,</TextBlock>
             </DockPanel>
@@ -77,6 +76,6 @@
                 <local:ObjectNode DataContext="{Binding ObjectValue}" />
             </Panel>
         </Panel>
-    </Grid>
+    </Panel>
 
 </UserControl>

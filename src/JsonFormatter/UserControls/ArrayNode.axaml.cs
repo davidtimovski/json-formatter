@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 
@@ -47,5 +48,16 @@ public partial class ArrayNode : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+    }
+    
+    private void TextBox_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        if (sender == null)
+        {
+            return;
+        }
+        
+        var textBox = (TextBox)sender;
+        textBox.SelectAll();
     }
 }

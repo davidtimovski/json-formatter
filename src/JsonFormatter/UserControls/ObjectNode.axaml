@@ -9,8 +9,23 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         
-        <Style Selector="StackPanel.objectNode TextBlock.value">
+        <Style Selector="StackPanel.objectNode TextBox.value">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource GreyColor}" />
             <Setter Property="Height" Value="20" />
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="MinWidth" Value="10" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="3 0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
+            <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" />
+        </Style>
+        <Style Selector="StackPanel.objectNode TextBox.value /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="StackPanel.objectNode TextBox.value:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent" />
         </Style>
     </UserControl.Styles>
 
@@ -24,7 +39,7 @@
                 <TextBlock Text="{Binding Indentation}" />
             
                 <DockPanel IsVisible="{Binding IsProperty}">
-                    <TextBlock Text="{Binding PropertyName}" Classes="property" />
+                    <TextBlock Text="{Binding PropertyName}" Classes="property" VerticalAlignment="Center" />
                     <TextBlock Text=": " Classes="property" />
                 </DockPanel>
             
@@ -34,8 +49,11 @@
                     <Button Name="CollapseButton" Classes="expandCollapseButton">-</Button>
                     <TextBlock Name="CollapsedClosingBracket" IsVisible="False" Classes="bracket">},</TextBlock>
                 </DockPanel>
-            
-                <TextBlock IsVisible="{Binding Empty}" Classes="bracket value">{},</TextBlock>
+                
+                <DockPanel IsVisible="{Binding Empty}">
+                    <TextBox PointerReleased="TextBox_OnPointerReleased" IsReadOnly="True" Classes="value">{}</TextBox>
+                    <TextBlock Classes="bracket">,</TextBlock>
+                </DockPanel>
             </DockPanel>
         </Border>
         

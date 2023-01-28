@@ -15,7 +15,7 @@
     
     <Window.Styles>
         <Style Selector="Window">
-            <Setter Property="Background" Value="#18181a" />
+            <Setter Property="Background" Value="#222" />
         </Style>
         
         <Style Selector="TextBlock.property">
@@ -28,20 +28,40 @@
         <Style Selector="TextBox">
             <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
         </Style>
+        <Style Selector="TextBox.input">
+            <Setter Property="MaxHeight" Value="Infinity" />
+            <Setter Property="AcceptsReturn" Value="True" />
+        </Style>
         
         <Style Selector="Button.expandCollapseButton">
             <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
         
         <Style Selector="Border.row">
-            <Setter Property="Margin" Value="0 2 0 2" />
+            <Setter Property="Height" Value="24" />
+        </Style>
+        
+        <Style Selector="Border.formatButtonWrap">
+            <Setter Property="Padding" Value="0 30" />
+        </Style>
+        <Style Selector="Border.formatButtonWrap Button">
+            <Setter Property="Padding" Value="20 10" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
     </Window.Styles>
 
-    <ScrollViewer>
-        <local:ValueNode DataContext="{Binding Root}" />
-    </ScrollViewer>
+    <Grid RowDefinitions="60 100 *">
+        <TextBox Name="Input" Grid.Row="0" Text="{Binding Input}" Classes="input" />
+        
+        <Border Grid.Row="1" Classes="formatButtonWrap">
+            <Button Command="{Binding OnFormatCommand}">Format</Button>
+        </Border>
+        
+        <local:JsonPresenter Grid.Row="2" DataContext="{Binding Presenter}" />
+    </Grid>
 
 </Window>
