@@ -25,9 +25,6 @@
             <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
         </Style>
         
-        <Style Selector="TextBox">
-            <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
-        </Style>
         <Style Selector="TextBox.input">
             <Setter Property="MaxHeight" Value="Infinity" />
             <Setter Property="AcceptsReturn" Value="True" />
@@ -55,10 +52,10 @@
     </Window.Styles>
 
     <Grid RowDefinitions="60 100 *">
-        <TextBox Name="Input" Grid.Row="0" Text="{Binding Input}" Classes="input" />
+        <TextBox Name="Input" Grid.Row="0" Text="{Binding Input}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes="input" />
         
         <Border Grid.Row="1" Classes="formatButtonWrap">
-            <Button Command="{Binding OnFormatCommand}">Format</Button>
+            <Button Name="FormatButton" IsEnabled="{Binding !FormatButtonDisabled}">Format</Button>
         </Border>
         
         <local:JsonPresenter Grid.Row="2" DataContext="{Binding Presenter}" />

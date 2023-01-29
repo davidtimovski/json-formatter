@@ -10,6 +10,9 @@
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
         
+        <Style Selector="TextBox">
+            <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
+        </Style>
         <Style Selector="TextBlock">
             <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
         </Style>
@@ -18,11 +21,13 @@
     <Application.Resources>
         <FontFamily x:Key="MainFontFamily">resm:JsonFormatter.Assets.Fonts?assembly=JsonFormatter#Consolas</FontFamily>
         
-        <SolidColorBrush x:Key="PrimaryColor">#85cfff</SolidColorBrush>
-        <SolidColorBrush x:Key="StringColor">#ff7de9</SolidColorBrush>
-        <SolidColorBrush x:Key="NumberColor">#86de74</SolidColorBrush>
-        <SolidColorBrush x:Key="GreyColor">#939395</SolidColorBrush>
-        <SolidColorBrush x:Key="SelectionBrush">#fff</SolidColorBrush>
-        <SolidColorBrush x:Key="SelectionForegroundBrush">#204e8a</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryColor">#66C3CC</SolidColorBrush>
+        <SolidColorBrush x:Key="GreyColor">#BCBC8F</SolidColorBrush>
+        <SolidColorBrush x:Key="NullColor">#BCBC8F</SolidColorBrush>
+        <SolidColorBrush x:Key="StringColor">#C8A162</SolidColorBrush>
+        <SolidColorBrush x:Key="NumberColor">#ED94C0</SolidColorBrush>
+        <SolidColorBrush x:Key="BooleanColor">#6C95EB</SolidColorBrush>
+        <SolidColorBrush x:Key="SelectionBrush">#08335E</SolidColorBrush>
+        <!-- <SolidColorBrush x:Key="SelectionForegroundBrush">#08335E</SolidColorBrush> -->
     </Application.Resources>
 </Application>

@@ -11,6 +11,7 @@ public class JsonPresenterViewModel : ViewModelBase
     
     public JsonPresenterViewModel(ValueNodeViewModel json)
     {
+        json.Last = true;
         this.json = json;
     }
     

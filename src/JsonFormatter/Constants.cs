@@ -2,5 +2,5 @@
 
 public static class Constants
 {
-    public const short IndentationSpaces = 4;
+    public const short IndentationWidth = 35;
 }

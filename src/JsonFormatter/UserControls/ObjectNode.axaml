@@ -35,40 +35,44 @@
 
     <StackPanel Classes="objectNode">
         <Border Classes="row">
-            <DockPanel>
-                <TextBlock Text="{Binding Indentation}" />
-            
+            <DockPanel Margin="{Binding Indentation}">
                 <DockPanel IsVisible="{Binding IsProperty}">
-                    <TextBlock Text="{Binding PropertyName}" Classes="property" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding PropertyName}" Classes="property" />
                     <TextBlock Text=": " Classes="property" />
                 </DockPanel>
             
                 <DockPanel IsVisible="{Binding !Empty}">
                     <TextBlock Classes="bracket">{</TextBlock>
-                    <Button Name="ExpandButton" IsVisible="False" Classes="expandCollapseButton">+</Button>
-                    <Button Name="CollapseButton" Classes="expandCollapseButton">-</Button>
-                    <TextBlock Name="CollapsedClosingBracket" IsVisible="False" Classes="bracket">},</TextBlock>
+                    <Button Command="{Binding OnExpandCommand}" IsVisible="{Binding Collapsed}" Classes="expandCollapseButton">+</Button>
+                    <Button Command="{Binding OnCollapseCommand}" IsVisible="{Binding !Collapsed}" Classes="expandCollapseButton">-</Button>
+                    
+                    <DockPanel IsVisible="{Binding Collapsed}">
+                        <TextBlock Classes="bracket">}</TextBlock>
+                        <TextBlock IsVisible="{Binding !Last}" Classes="bracket">,</TextBlock>
+                    </DockPanel>
                 </DockPanel>
                 
                 <DockPanel IsVisible="{Binding Empty}">
                     <TextBox PointerReleased="TextBox_OnPointerReleased" IsReadOnly="True" Classes="value">{}</TextBox>
-                    <TextBlock Classes="bracket">,</TextBlock>
+                    <TextBlock IsVisible="{Binding !Last}" Classes="bracket">,</TextBlock>
                 </DockPanel>
             </DockPanel>
         </Border>
         
-        <ItemsControl Name="Properties" Items="{Binding Properties}" IsVisible="{Binding !Empty}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:ValueNode DataContext="{Binding}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Panel IsVisible="{Binding !Empty}">
+            <ItemsControl Items="{Binding Properties}" IsVisible="{Binding !Collapsed}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:ValueNode DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Panel>
         
-        <Border Name="ClosingBracket" IsVisible="{Binding !Empty}" Classes="row">
-            <DockPanel>
-                <TextBlock Text="{Binding Indentation}" />
-                <TextBlock Classes="bracket">},</TextBlock>
+        <Border IsVisible="{Binding !Collapsed}" Classes="row">
+            <DockPanel Margin="{Binding Indentation}">
+                <TextBlock Classes="bracket">}</TextBlock>
+                <TextBlock IsVisible="{Binding !Last}" Classes="bracket">,</TextBlock>
             </DockPanel>
         </Border>
 

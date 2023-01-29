@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
+using Avalonia;
 using DynamicData;
 using ReactiveUI;
 
@@ -11,25 +13,44 @@ public class ObjectNodeViewModel : ViewModelBase
 {
     public ObjectNodeViewModel()
     {
+        OnCollapseCommand = ReactiveCommand.Create(() => { Collapsed = true; });
+        OnExpandCommand = ReactiveCommand.Create(() => { Collapsed = false; });
     }
 
-    public ObjectNodeViewModel(List<ValueNodeViewModel> properties, short nesting, string? propertyName = null)
+    public ObjectNodeViewModel(List<ValueNodeViewModel> properties, short nesting, string? propertyName = null) : this()
     {
         _ = properties ?? throw new ArgumentException(null, nameof(properties));
         
-        indentation = new string(' ', nesting * Constants.IndentationSpaces);
+        indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
             isProperty = true;
             this.propertyName = propertyName;
         }
-        
-        empty = !properties.Any();
-        Properties.AddRange(properties);
+
+        if (properties.Any())
+        {
+            properties[^1].Last = true;
+            Properties.AddRange(properties);
+        }
+        else
+        {
+            empty = collapsed = true;
+        }
+    }
+    
+    private ReactiveCommand<Unit, Unit> OnCollapseCommand { get; }
+    private ReactiveCommand<Unit, Unit> OnExpandCommand { get; }
+    
+    private bool collapsed;
+    public bool Collapsed
+    {
+        get => collapsed;
+        set => this.RaiseAndSetIfChanged(ref collapsed, value);
     }
 
-    private string indentation = string.Empty;
-    public string Indentation
+    private Thickness indentation;
+    public Thickness Indentation
     {
         get => indentation;
         set => this.RaiseAndSetIfChanged(ref indentation, value);
@@ -57,4 +78,11 @@ public class ObjectNodeViewModel : ViewModelBase
     }
 
     public ObservableCollection<ValueNodeViewModel> Properties { get; set; } = new();
+    
+    private bool last;
+    public bool Last
+    {
+        get => last;
+        set => this.RaiseAndSetIfChanged(ref last, value);
+    }
 }

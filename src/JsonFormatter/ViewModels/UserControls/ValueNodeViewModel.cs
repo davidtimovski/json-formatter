@@ -1,4 +1,6 @@
-﻿using ReactiveUI;
+﻿using System.Globalization;
+using Avalonia;
+using ReactiveUI;
 
 namespace JsonFormatter.ViewModels.UserControls;
 
@@ -10,7 +12,7 @@ public class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(short nesting, string? propertyName = null)
     {
-        indentation = new string(' ', nesting * Constants.IndentationSpaces);
+        indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
             isProperty = true;
@@ -22,7 +24,7 @@ public class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(string value, short nesting, string? propertyName = null)
     {
-        indentation = new string(' ', nesting * Constants.IndentationSpaces);
+        indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
             isProperty = true;
@@ -35,20 +37,20 @@ public class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(double value, short nesting, string? propertyName = null)
     {
-        indentation = new string(' ', nesting * Constants.IndentationSpaces);
+        indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
             isProperty = true;
             this.propertyName = propertyName;
         }
-        numberValue = value.ToString();
+        numberValue = value.ToString(CultureInfo.InvariantCulture);
         isNumberValue = true;
         isPrimitive = true;
     }
     
     public ValueNodeViewModel(bool value, short nesting, string? propertyName = null)
     {
-        indentation = new string(' ', nesting * Constants.IndentationSpaces);
+        indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
             isProperty = true;
@@ -71,8 +73,8 @@ public class ValueNodeViewModel : ViewModelBase
         isObjectValue = true;
     }
     
-    private string indentation = string.Empty;
-    public string Indentation
+    private Thickness indentation;
+    public Thickness Indentation
     {
         get => indentation;
         set => this.RaiseAndSetIfChanged(ref indentation, value);
@@ -174,5 +176,23 @@ public class ValueNodeViewModel : ViewModelBase
     {
         get => objectValue;
         set => this.RaiseAndSetIfChanged(ref objectValue, value);
+    }
+    
+    private bool last;
+    public bool Last
+    {
+        get => last;
+        set
+        {
+            if (isArrayValue)
+            {
+                arrayValue.Last = value;
+            }
+            else if (isObjectValue)
+            {
+                objectValue.Last = value;
+            }
+            this.RaiseAndSetIfChanged(ref last, value);
+        }
     }
 }

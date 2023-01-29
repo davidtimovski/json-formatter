@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reactive;
 using JsonFormatter.ViewModels.UserControls;
 using ReactiveUI;
 using System.Text.Json;
@@ -10,19 +9,14 @@ namespace JsonFormatter.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public MainWindowViewModel()
-    {
-        OnFormatCommand = ReactiveCommand.Create(FormatJson);
-    }
-    
-    private ReactiveCommand<Unit, Unit> OnFormatCommand { get; }
-    
-    private void FormatJson()
+    public void FormatJson()
     {
         if (input == string.Empty)
         {
             return;
         }
+
+        SanitizeInput();
 
         try
         {
@@ -31,7 +25,20 @@ public class MainWindowViewModel : ViewModelBase
         }
         catch
         {
-            
+            // TODO: Show error
+        }
+    }
+
+
+    private void SanitizeInput()
+    {
+        if (input.StartsWith("\"") && input.EndsWith("\""))
+        {
+            input = input.Substring(1, input.Length - 2);
+        }
+        else if (input.StartsWith('\'') && input.EndsWith('\''))
+        {
+            input = input.Substring(1, input.Length - 2);
         }
     }
 
@@ -82,6 +89,13 @@ public class MainWindowViewModel : ViewModelBase
         var propNesting = (short)(nesting + 1);
         var properties = jObject.Select(property => GetVm(property.Value, propNesting, property.Key)).ToList();
         return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName));
+    }
+    
+    private bool formatButtonDisabled;
+    public bool FormatButtonDisabled
+    {
+        get => formatButtonDisabled;
+        set => this.RaiseAndSetIfChanged(ref formatButtonDisabled, value);
     }
     
     private string input = string.Empty;

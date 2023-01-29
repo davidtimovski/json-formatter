@@ -6,7 +6,7 @@
 
     <UserControl.Styles>
         <Style Selector="Border.valueRow:pointerover">
-            <Setter Property="Background" Value="#444" />
+            <Setter Property="Background" Value="#202424" />
         </Style>
         
         <Style Selector="Panel.valueNode TextBlock">
@@ -20,9 +20,8 @@
             <Setter Property="MinWidth" Value="10" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="3 0" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
-            <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" />
+            <!-- <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" /> -->
         </Style>
         <Style Selector="Panel.valueNode TextBox.value /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="0" />
@@ -30,8 +29,11 @@
         <Style Selector="Panel.valueNode TextBox.value:pointerover /template/ Border#PART_BorderElement">
             <Setter Property="Background" Value="Transparent" />
         </Style>
+        <Style Selector="Panel.valueNode TextBox.value:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
         <Style Selector="Panel.valueNode TextBox.nullValue">
-            <Setter Property="Foreground" Value="{DynamicResource GreyColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource NullColor}" />
         </Style>
         <Style Selector="Panel.valueNode TextBox.stringValue">
             <Setter Property="Foreground" Value="{DynamicResource StringColor}" />
@@ -40,7 +42,7 @@
             <Setter Property="Foreground" Value="{DynamicResource NumberColor}" />
         </Style>
         <Style Selector="Panel.valueNode TextBox.boolValue">
-            <Setter Property="Foreground" Value="{DynamicResource NumberColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource BooleanColor}" />
         </Style>
     </UserControl.Styles>
 
@@ -50,9 +52,7 @@
 
     <Panel Classes="valueNode">
         <Border IsVisible="{Binding IsPrimitive}" Classes="row valueRow">
-            <DockPanel>
-                <TextBlock Text="{Binding Indentation}" />
-            
+            <DockPanel Margin="{Binding Indentation}">
                 <DockPanel IsVisible="{Binding IsProperty}">
                     <TextBlock Text="{Binding PropertyName}" Classes="property" />
                     <TextBlock Text=": " Classes="property" />
@@ -63,7 +63,7 @@
                 <TextBox IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding NumberValue}" IsReadOnly="True" Classes="value numberValue" />
                 <TextBox IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding BooleanValue}" IsReadOnly="True" Classes="value boolValue" />
             
-                <TextBlock>,</TextBlock>
+                <TextBlock IsVisible="{Binding !Last}" Classes="property">,</TextBlock>
             </DockPanel>
         </Border>
 

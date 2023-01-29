@@ -16,7 +16,7 @@ public partial class ValueNode : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    private void TextBox_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    private void TextBox_OnPointerReleased(object? sender, PointerReleasedEventArgs _)
     {
         if (sender == null)
         {
