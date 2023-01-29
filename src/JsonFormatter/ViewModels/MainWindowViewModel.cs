@@ -9,10 +9,19 @@ namespace JsonFormatter.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public void FormatJson()
+    public void StartFormatting()
+    {
+        FormatButtonDisabled = true;
+        Presenter = new JsonPresenterViewModel();
+        InvalidInput = false;
+        FormatButtonLabel = "Formatting..";
+    }
+    
+    public void Format()
     {
         if (input == string.Empty)
         {
+            EndFormatting();
             return;
         }
 
@@ -22,14 +31,22 @@ public class MainWindowViewModel : ViewModelBase
         {
             var result = JsonNode.Parse(input);
             Presenter = new JsonPresenterViewModel(GetVm(result, 0));
+            invalidInput = false;
         }
         catch
         {
-            // TODO: Show error
+            InvalidInput = true;
         }
+
+        EndFormatting();
     }
 
-
+    private void EndFormatting()
+    {
+        FormatButtonLabel = "Format";
+        FormatButtonDisabled = false;
+    }
+    
     private void SanitizeInput()
     {
         if (input.StartsWith("\"") && input.EndsWith("\""))
@@ -97,12 +114,26 @@ public class MainWindowViewModel : ViewModelBase
         get => formatButtonDisabled;
         set => this.RaiseAndSetIfChanged(ref formatButtonDisabled, value);
     }
+
+    private string formatButtonLabel = "Format";
+    public string FormatButtonLabel
+    {
+        get => formatButtonLabel;
+        set => this.RaiseAndSetIfChanged(ref formatButtonLabel, value);
+    }
     
     private string input = string.Empty;
     public string Input
     {
         get => input;
         set => this.RaiseAndSetIfChanged(ref input, value);
+    }
+    
+    private bool invalidInput;
+    public bool InvalidInput
+    {
+        get => invalidInput;
+        set => this.RaiseAndSetIfChanged(ref invalidInput, value);
     }
 
     private JsonPresenterViewModel presenter = new();

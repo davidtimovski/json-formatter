@@ -14,7 +14,7 @@ public partial class MainWindow : Window
         
         var input = this.FindControl<TextBox>("Input");
         input.Watermark = "{ \"property': \"value\" }";
-        
+
         var formatButton = this.FindControl<Button>("FormatButton");
         formatButton.Command = ReactiveCommand.Create(FormatJson);
     }
@@ -22,12 +22,11 @@ public partial class MainWindow : Window
     private void FormatJson()
     {
         var vm = (MainWindowViewModel)DataContext!;
-        vm.FormatButtonDisabled = true;
+        vm.StartFormatting();
 
         Dispatcher.UIThread.Post(() =>
         {
-            vm.FormatJson();
-            vm.FormatButtonDisabled = false;
+            vm.Format();
         }, DispatcherPriority.Background);
     }
 

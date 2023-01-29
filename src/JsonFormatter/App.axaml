@@ -6,20 +6,10 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-
-    <Application.Styles>
-        <FluentTheme Mode="Dark"/>
-        
-        <Style Selector="TextBox">
-            <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
-        </Style>
-        <Style Selector="TextBlock">
-            <Setter Property="FontFamily" Value="{DynamicResource MainFontFamily}" />
-        </Style>
-    </Application.Styles>
     
     <Application.Resources>
-        <FontFamily x:Key="MainFontFamily">resm:JsonFormatter.Assets.Fonts?assembly=JsonFormatter#Consolas</FontFamily>
+        <FontFamily x:Key="MainFontFamily">resm:JsonFormatter.Assets.Fonts?assembly=JsonFormatter#Maven Pro</FontFamily>
+        <FontFamily x:Key="CodeFontFamily">resm:JsonFormatter.Assets.Fonts?assembly=JsonFormatter#Fira Code</FontFamily>
         
         <SolidColorBrush x:Key="PrimaryColor">#66C3CC</SolidColorBrush>
         <SolidColorBrush x:Key="GreyColor">#BCBC8F</SolidColorBrush>
@@ -29,5 +19,38 @@
         <SolidColorBrush x:Key="BooleanColor">#6C95EB</SolidColorBrush>
         <SolidColorBrush x:Key="SelectionBrush">#08335E</SolidColorBrush>
         <!-- <SolidColorBrush x:Key="SelectionForegroundBrush">#08335E</SolidColorBrush> -->
+        <SolidColorBrush x:Key="InvalidColor"> #4A2421</SolidColorBrush>
     </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme Mode="Dark"/>
+        
+        <Style Selector="Window">
+            <Setter Property="Background" Value="#222" />
+            <Setter Property="MinWidth" Value="400" />
+            <Setter Property="MinHeight" Value="400" />
+            <Setter Property="FontFamily" Value="{StaticResource MainFontFamily}" />
+        </Style>
+        
+        <Style Selector="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource CodeFontFamily}" />
+        </Style>
+        <Style Selector="TextBlock.code">
+            <Setter Property="FontFamily" Value="{StaticResource CodeFontFamily}" />
+        </Style>
+        
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#354F85" />
+            <Setter Property="Foreground" Value="#eee" />
+            <Setter Property="BorderBrush" Value="#182C57" />
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#354F85" />
+            <Setter Property="BorderBrush" Value="#182C57" />
+        </Style>
+        <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#3B3B3B" />
+            <Setter Property="BorderBrush" Value="#5E6060" />
+        </Style>
+    </Application.Styles>
 </Application>

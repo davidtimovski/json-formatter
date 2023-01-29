@@ -11,15 +11,15 @@
         
         <Style Selector="StackPanel.arrayNode TextBox.value">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{DynamicResource GreyColor}" />
+            <Setter Property="Foreground" Value="{StaticResource GreyColor}" />
             <Setter Property="Height" Value="20" />
             <Setter Property="MinHeight" Value="20" />
             <Setter Property="MinWidth" Value="10" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="3 0" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
-            <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" />
+            <Setter Property="SelectionBrush" Value="{StaticResource SelectionBrush}" />
+            <!-- <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" /> -->
         </Style>
         <Style Selector="StackPanel.arrayNode TextBox.value /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="0" />
@@ -37,24 +37,24 @@
         <Border Classes="row">
             <DockPanel Margin="{Binding Indentation}">
                 <DockPanel IsVisible="{Binding IsProperty}">
-                    <TextBlock Text="{Binding PropertyName}" Classes="property" />
-                    <TextBlock Text=": " Classes="property" />
+                    <TextBlock Text="{Binding PropertyName}" Classes="code property" />
+                    <TextBlock Text=": " Classes="code property" />
                 </DockPanel>
             
                 <DockPanel IsVisible="{Binding !Empty}">
-                    <TextBlock Classes="bracket">[</TextBlock>
+                    <TextBlock Classes="code bracket">[</TextBlock>
                     <Button Command="{Binding OnExpandCommand}" IsVisible="{Binding Collapsed}" Classes="expandCollapseButton">+</Button>
                     <Button Command="{Binding OnCollapseCommand}" IsVisible="{Binding !Collapsed}" Classes="expandCollapseButton">-</Button>
                     
                     <DockPanel IsVisible="{Binding Collapsed}">
-                        <TextBlock Classes="bracket">]</TextBlock>
-                        <TextBlock IsVisible="{Binding !Last}" Classes="bracket">,</TextBlock>
+                        <TextBlock Classes="code bracket">]</TextBlock>
+                        <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
                     </DockPanel>
                 </DockPanel>
                 
                 <DockPanel IsVisible="{Binding Empty}">
                     <TextBox PointerReleased="TextBox_OnPointerReleased" IsReadOnly="True" Classes="value">[]</TextBox>
-                    <TextBlock IsVisible="{Binding !Last}" Classes="bracket">,</TextBlock>
+                    <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
                 </DockPanel>
             </DockPanel>
         </Border>
@@ -71,8 +71,8 @@
         
         <Border IsVisible="{Binding !Collapsed}" Classes="row">
             <DockPanel Margin="{Binding Indentation}">
-                <TextBlock Classes="bracket">]</TextBlock>
-                <TextBlock IsVisible="{Binding !Last}" Classes="bracket">,</TextBlock>
+                <TextBlock Classes="code bracket">]</TextBlock>
+                <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
             </DockPanel>
         </Border>
 

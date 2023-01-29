@@ -14,51 +14,74 @@
     </Design.DataContext>
     
     <Window.Styles>
-        <Style Selector="Window">
-            <Setter Property="Background" Value="#222" />
+        <Style Selector="Border.container">
+            <Setter Property="Padding" Value="15" />
         </Style>
         
         <Style Selector="TextBlock.property">
-            <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
         </Style>
         <Style Selector="TextBlock.bracket">
-            <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
         </Style>
         
         <Style Selector="TextBox.input">
+            <Setter Property="Background" Value="#262626" />
+            <Setter Property="Foreground" Value="#eee" />
             <Setter Property="MaxHeight" Value="Infinity" />
             <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="BorderBrush" Value="#242424" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="SelectionBrush" Value="{StaticResource SelectionBrush}" />
+        </Style>
+        <Style Selector="TextBox.input /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="TextBox.input:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#262626" />
+        </Style>
+        <Style Selector="TextBox.input:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#262626" />
+        </Style>
+        <Style Selector="TextBox.input.invalid">
+            <Setter Property="Background" Value="{StaticResource InvalidColor}" />
+        </Style>
+        <Style Selector="TextBox.input.invalid:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{StaticResource InvalidColor}" />
         </Style>
         
         <Style Selector="Button.expandCollapseButton">
-            <Setter Property="Width" Value="20" />
-            <Setter Property="Height" Value="20" />
+            <Setter Property="Width" Value="22" />
+            <Setter Property="Height" Value="22" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
         
         <Style Selector="Border.row">
-            <Setter Property="Height" Value="24" />
+            <Setter Property="Height" Value="22" />
         </Style>
         
         <Style Selector="Border.formatButtonWrap">
             <Setter Property="Padding" Value="0 30" />
         </Style>
         <Style Selector="Border.formatButtonWrap Button">
-            <Setter Property="Padding" Value="20 10" />
+            <Setter Property="Padding" Value="25 10" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="20" />
         </Style>
     </Window.Styles>
 
-    <Grid RowDefinitions="60 100 *">
-        <TextBox Name="Input" Grid.Row="0" Text="{Binding Input}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes="input" />
+    <Border Classes="container">
+        <Grid RowDefinitions="150 Auto *">
+            <TextBox Name="Input" Grid.Row="0" Text="{Binding Input}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes.invalid="{Binding InvalidInput}" Classes="input" />
         
-        <Border Grid.Row="1" Classes="formatButtonWrap">
-            <Button Name="FormatButton" IsEnabled="{Binding !FormatButtonDisabled}">Format</Button>
-        </Border>
+            <Border Grid.Row="1" Classes="formatButtonWrap">
+                <Button Name="FormatButton" Content="{Binding FormatButtonLabel}" IsEnabled="{Binding !FormatButtonDisabled}" />
+            </Border>
         
-        <local:JsonPresenter Grid.Row="2" DataContext="{Binding Presenter}" />
-    </Grid>
+            <local:JsonPresenter Grid.Row="2" DataContext="{Binding Presenter}" />
+        </Grid>
+    </Border>
 
 </Window>

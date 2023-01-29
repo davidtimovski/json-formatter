@@ -20,7 +20,7 @@
             <Setter Property="MinWidth" Value="10" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="3 0" />
-            <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
+            <Setter Property="SelectionBrush" Value="{StaticResource SelectionBrush}" />
             <!-- <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" /> -->
         </Style>
         <Style Selector="Panel.valueNode TextBox.value /template/ Border#PART_BorderElement">
@@ -33,16 +33,16 @@
             <Setter Property="Background" Value="Transparent" />
         </Style>
         <Style Selector="Panel.valueNode TextBox.nullValue">
-            <Setter Property="Foreground" Value="{DynamicResource NullColor}" />
+            <Setter Property="Foreground" Value="{StaticResource NullColor}" />
         </Style>
         <Style Selector="Panel.valueNode TextBox.stringValue">
-            <Setter Property="Foreground" Value="{DynamicResource StringColor}" />
+            <Setter Property="Foreground" Value="{StaticResource StringColor}" />
         </Style>
         <Style Selector="Panel.valueNode TextBox.numberValue">
-            <Setter Property="Foreground" Value="{DynamicResource NumberColor}" />
+            <Setter Property="Foreground" Value="{StaticResource NumberColor}" />
         </Style>
         <Style Selector="Panel.valueNode TextBox.boolValue">
-            <Setter Property="Foreground" Value="{DynamicResource BooleanColor}" />
+            <Setter Property="Foreground" Value="{StaticResource BooleanColor}" />
         </Style>
     </UserControl.Styles>
 
@@ -54,8 +54,8 @@
         <Border IsVisible="{Binding IsPrimitive}" Classes="row valueRow">
             <DockPanel Margin="{Binding Indentation}">
                 <DockPanel IsVisible="{Binding IsProperty}">
-                    <TextBlock Text="{Binding PropertyName}" Classes="property" />
-                    <TextBlock Text=": " Classes="property" />
+                    <TextBlock Text="{Binding PropertyName}" Classes="code property" />
+                    <TextBlock Text=": " Classes="code property" />
                 </DockPanel>
 
                 <TextBox IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased" Text="null" IsReadOnly="True" Classes="value nullValue" />
@@ -63,7 +63,7 @@
                 <TextBox IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding NumberValue}" IsReadOnly="True" Classes="value numberValue" />
                 <TextBox IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding BooleanValue}" IsReadOnly="True" Classes="value boolValue" />
             
-                <TextBlock IsVisible="{Binding !Last}" Classes="property">,</TextBlock>
+                <TextBlock IsVisible="{Binding !Last}" Classes="code property">,</TextBlock>
             </DockPanel>
         </Border>
 

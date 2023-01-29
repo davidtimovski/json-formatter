@@ -6,6 +6,12 @@
         <Nullable>enable</Nullable>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
+        <Product>Json Formatter</Product>
+        <Copyright>Copyright © David Timovski 2023</Copyright>
+        <Company>David Timovski</Company>
+        <AssemblyVersion>0.1.0</AssemblyVersion>
+        <FileVersion>0.1.0</FileVersion>
+        <Version>0.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -46,6 +52,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Assets\Fonts\Consolas.ttf" />
+        <EmbeddedResource Include="Assets\Fonts\FiraCode-Regular.ttf" />
+        <EmbeddedResource Include="Assets\Fonts\MavenPro-Regular.ttf" />
     </ItemGroup>
 </Project>
