@@ -14,6 +14,10 @@
     </Design.DataContext>
     
     <Window.Styles>
+        <StyleInclude Source="/Styles/ArrayNode.axaml" />
+        <StyleInclude Source="/Styles/ObjectNode.axaml" />
+        <StyleInclude Source="/Styles/ValueNode.axaml" />
+
         <Style Selector="Border.container">
             <Setter Property="Padding" Value="15" />
         </Style>

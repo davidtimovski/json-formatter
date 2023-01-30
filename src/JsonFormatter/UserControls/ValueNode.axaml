@@ -4,48 +4,6 @@
              xmlns:local="using:JsonFormatter.UserControls"
              x:Class="JsonFormatter.UserControls.ValueNode">
 
-    <UserControl.Styles>
-        <Style Selector="Border.valueRow:pointerover">
-            <Setter Property="Background" Value="#202424" />
-        </Style>
-        
-        <Style Selector="Panel.valueNode TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        
-        <Style Selector="Panel.valueNode TextBox.value">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Height" Value="20" />
-            <Setter Property="MinHeight" Value="20" />
-            <Setter Property="MinWidth" Value="10" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="3 0" />
-            <Setter Property="SelectionBrush" Value="{StaticResource SelectionBrush}" />
-            <!-- <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" /> -->
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.value /template/ Border#PART_BorderElement">
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.value:pointerover /template/ Border#PART_BorderElement">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.value:focus /template/ Border#PART_BorderElement">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.nullValue">
-            <Setter Property="Foreground" Value="{StaticResource NullColor}" />
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.stringValue">
-            <Setter Property="Foreground" Value="{StaticResource StringColor}" />
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.numberValue">
-            <Setter Property="Foreground" Value="{StaticResource NumberColor}" />
-        </Style>
-        <Style Selector="Panel.valueNode TextBox.boolValue">
-            <Setter Property="Foreground" Value="{StaticResource BooleanColor}" />
-        </Style>
-    </UserControl.Styles>
-
     <Design.DataContext>
         <vm:ValueNodeViewModel />
     </Design.DataContext>

@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
 using Avalonia;
-using DynamicData;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace JsonFormatter.ViewModels.UserControls;
 
-public class ObjectNodeViewModel : ViewModelBase
+public partial class ObjectNodeViewModel : ViewModelBase
 {
-    public ObjectNodeViewModel()
-    {
-        OnCollapseCommand = ReactiveCommand.Create(() => { Collapsed = true; });
-        OnExpandCommand = ReactiveCommand.Create(() => { Collapsed = false; });
-    }
-
-    public ObjectNodeViewModel(List<ValueNodeViewModel> properties, short nesting, string? propertyName = null) : this()
+    public ObjectNodeViewModel(List<ValueNodeViewModel> properties, short nesting, string? propertyName = null)
     {
         _ = properties ?? throw new ArgumentException(null, nameof(properties));
         
@@ -31,7 +24,11 @@ public class ObjectNodeViewModel : ViewModelBase
         if (properties.Any())
         {
             properties[^1].Last = true;
-            Properties.AddRange(properties);
+            
+            foreach (var property in properties)
+            {
+                Properties.Add(property);
+            }
         }
         else
         {
@@ -39,50 +36,35 @@ public class ObjectNodeViewModel : ViewModelBase
         }
     }
     
-    private ReactiveCommand<Unit, Unit> OnCollapseCommand { get; }
-    private ReactiveCommand<Unit, Unit> OnExpandCommand { get; }
-    
-    private bool collapsed;
-    public bool Collapsed
+    [RelayCommand]
+    private void Collapse()
     {
-        get => collapsed;
-        set => this.RaiseAndSetIfChanged(ref collapsed, value);
+        Collapsed = true;
     }
 
-    private Thickness indentation;
-    public Thickness Indentation
+    [RelayCommand]
+    private void Expand()
     {
-        get => indentation;
-        set => this.RaiseAndSetIfChanged(ref indentation, value);
+        Collapsed = false;
     }
     
-    private bool isProperty;
-    public bool IsProperty
-    {
-        get => isProperty;
-        set => this.RaiseAndSetIfChanged(ref isProperty, value);
-    }
-    
-    private string? propertyName;
-    public string? PropertyName
-    {
-        get => propertyName;
-        set => this.RaiseAndSetIfChanged(ref propertyName, value);
-    }
-
+    [ObservableProperty]
     private bool empty;
-    public bool Empty
-    {
-        get => empty;
-        set => this.RaiseAndSetIfChanged(ref empty, value);
-    }
+
+    [ObservableProperty]
+    private bool collapsed;
+
+    [ObservableProperty]
+    private Thickness indentation;
+
+    [ObservableProperty]
+    private bool isProperty;
+
+    [ObservableProperty]
+    private string? propertyName;
+
+    [ObservableProperty]
+    private bool last;
 
     public ObservableCollection<ValueNodeViewModel> Properties { get; set; } = new();
-    
-    private bool last;
-    public bool Last
-    {
-        get => last;
-        set => this.RaiseAndSetIfChanged(ref last, value);
-    }
 }

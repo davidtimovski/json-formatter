@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
 using Avalonia;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace JsonFormatter.ViewModels.UserControls;
 
-public class ValueNodeViewModel : ViewModelBase
+public partial class ValueNodeViewModel : ViewModelBase
 {
     public ValueNodeViewModel()
     {
@@ -63,136 +63,63 @@ public class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(ArrayNodeViewModel value)
     {
+        value.Last = last;
         arrayValue = value;
         isArrayValue = true;
     }
     
     public ValueNodeViewModel(ObjectNodeViewModel value)
     {
+        value.Last = last;
         objectValue = value;
         isObjectValue = true;
     }
     
+    [ObservableProperty]
     private Thickness indentation;
-    public Thickness Indentation
-    {
-        get => indentation;
-        set => this.RaiseAndSetIfChanged(ref indentation, value);
-    }
 
+    [ObservableProperty]
     private bool isProperty;
-    public bool IsProperty
-    {
-        get => isProperty;
-        set => this.RaiseAndSetIfChanged(ref isProperty, value);
-    }
-    
+
+    [ObservableProperty]
     private string? propertyName;
-    public string? PropertyName
-    {
-        get => propertyName;
-        set => this.RaiseAndSetIfChanged(ref propertyName, value);
-    }
-    
+
+    [ObservableProperty]
     private bool isPrimitive;
-    public bool IsPrimitive
-    {
-        get => isPrimitive;
-        set => this.RaiseAndSetIfChanged(ref isPrimitive, value);
-    }
-    
+ 
+    [ObservableProperty]
     private bool isNullValue;
-    public bool IsNullValue
-    {
-        get => isNullValue;
-        set => this.RaiseAndSetIfChanged(ref isNullValue, value);
-    }
-    
+
+    [ObservableProperty]
     private bool isStringValue;
-    public bool IsStringValue
-    {
-        get => isStringValue;
-        set => this.RaiseAndSetIfChanged(ref isStringValue, value);
-    }
-    
+
+    [ObservableProperty]
     private string stringValue;
-    public string StringValue
-    {
-        get => stringValue;
-        set => this.RaiseAndSetIfChanged(ref stringValue, value);
-    }
-    
+
+    [ObservableProperty]
     private bool isNumberValue;
-    public bool IsNumberValue
-    {
-        get => isNumberValue;
-        set => this.RaiseAndSetIfChanged(ref isNumberValue, value);
-    }
-    
+
+    [ObservableProperty]
     private string numberValue;
-    public string NumberValue
-    {
-        get => numberValue;
-        set => this.RaiseAndSetIfChanged(ref numberValue, value);
-    }
-    
+
+    [ObservableProperty]
     private bool isBooleanValue;
-    public bool IsBooleanValue
-    {
-        get => isBooleanValue;
-        set => this.RaiseAndSetIfChanged(ref isBooleanValue, value);
-    }
-    
+
+    [ObservableProperty]
     private string booleanValue;
-    public string BooleanValue
-    {
-        get => booleanValue;
-        set => this.RaiseAndSetIfChanged(ref booleanValue, value);
-    }
-    
+
+    [ObservableProperty]
     private bool isArrayValue;
-    public bool IsArrayValue
-    {
-        get => isArrayValue;
-        set => this.RaiseAndSetIfChanged(ref isArrayValue, value);
-    }
 
-    private ArrayNodeViewModel arrayValue = new();
-    public ArrayNodeViewModel ArrayValue
-    {
-        get => arrayValue;
-        set => this.RaiseAndSetIfChanged(ref arrayValue, value);
-    }
-    
+    [ObservableProperty]
+    private ArrayNodeViewModel arrayValue;
+
+    [ObservableProperty]
     private bool isObjectValue;
-    public bool IsObjectValue
-    {
-        get => isObjectValue;
-        set => this.RaiseAndSetIfChanged(ref isObjectValue, value);
-    }
 
-    private ObjectNodeViewModel objectValue = new();
-    public ObjectNodeViewModel ObjectValue
-    {
-        get => objectValue;
-        set => this.RaiseAndSetIfChanged(ref objectValue, value);
-    }
-    
+    [ObservableProperty]
+    private ObjectNodeViewModel objectValue;
+
+    [ObservableProperty]
     private bool last;
-    public bool Last
-    {
-        get => last;
-        set
-        {
-            if (isArrayValue)
-            {
-                arrayValue.Last = value;
-            }
-            else if (isObjectValue)
-            {
-                objectValue.Last = value;
-            }
-            this.RaiseAndSetIfChanged(ref last, value);
-        }
-    }
 }

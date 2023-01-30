@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Linq;
 using JsonFormatter.ViewModels.UserControls;
-using ReactiveUI;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace JsonFormatter.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase
 {
+    public MainWindowViewModel()
+    {
+        input = string.Empty;
+        formatButtonLabel = "Format";
+    }
+    
     public void StartFormatting()
     {
         FormatButtonDisabled = true;
@@ -19,7 +25,7 @@ public class MainWindowViewModel : ViewModelBase
     
     public void Format()
     {
-        if (input == string.Empty)
+        if (Input == string.Empty)
         {
             EndFormatting();
             return;
@@ -29,9 +35,9 @@ public class MainWindowViewModel : ViewModelBase
 
         try
         {
-            var result = JsonNode.Parse(input);
+            var result = JsonNode.Parse(Input);
             Presenter = new JsonPresenterViewModel(GetVm(result, 0));
-            invalidInput = false;
+            InvalidInput = false;
         }
         catch
         {
@@ -49,13 +55,13 @@ public class MainWindowViewModel : ViewModelBase
     
     private void SanitizeInput()
     {
-        if (input.StartsWith("\"") && input.EndsWith("\""))
+        if (Input.StartsWith("\"") && Input.EndsWith("\""))
         {
-            input = input.Substring(1, input.Length - 2);
+            Input = Input.Substring(1, Input.Length - 2);
         }
-        else if (input.StartsWith('\'') && input.EndsWith('\''))
+        else if (Input.StartsWith('\'') && Input.EndsWith('\''))
         {
-            input = input.Substring(1, input.Length - 2);
+            Input = Input.Substring(1, Input.Length - 2);
         }
     }
 
@@ -108,38 +114,18 @@ public class MainWindowViewModel : ViewModelBase
         return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName));
     }
     
+    [ObservableProperty]
     private bool formatButtonDisabled;
-    public bool FormatButtonDisabled
-    {
-        get => formatButtonDisabled;
-        set => this.RaiseAndSetIfChanged(ref formatButtonDisabled, value);
-    }
 
-    private string formatButtonLabel = "Format";
-    public string FormatButtonLabel
-    {
-        get => formatButtonLabel;
-        set => this.RaiseAndSetIfChanged(ref formatButtonLabel, value);
-    }
-    
-    private string input = string.Empty;
-    public string Input
-    {
-        get => input;
-        set => this.RaiseAndSetIfChanged(ref input, value);
-    }
-    
+    [ObservableProperty]
+    private string formatButtonLabel;
+
+    [ObservableProperty]
+    private string input;
+
+    [ObservableProperty]
     private bool invalidInput;
-    public bool InvalidInput
-    {
-        get => invalidInput;
-        set => this.RaiseAndSetIfChanged(ref invalidInput, value);
-    }
 
+    [ObservableProperty]
     private JsonPresenterViewModel presenter = new();
-    public JsonPresenterViewModel Presenter
-    {
-        get => presenter;
-        set => this.RaiseAndSetIfChanged(ref presenter, value);
-    }
 }

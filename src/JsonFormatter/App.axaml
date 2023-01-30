@@ -19,7 +19,7 @@
         <SolidColorBrush x:Key="BooleanColor">#6C95EB</SolidColorBrush>
         <SolidColorBrush x:Key="SelectionBrush">#08335E</SolidColorBrush>
         <!-- <SolidColorBrush x:Key="SelectionForegroundBrush">#08335E</SolidColorBrush> -->
-        <SolidColorBrush x:Key="InvalidColor"> #4A2421</SolidColorBrush>
+        <SolidColorBrush x:Key="InvalidColor">#4A2421</SolidColorBrush>
     </Application.Resources>
 
     <Application.Styles>

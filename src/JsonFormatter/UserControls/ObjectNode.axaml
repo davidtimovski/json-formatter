@@ -4,31 +4,6 @@
              xmlns:local="using:JsonFormatter.UserControls"
              x:Class="JsonFormatter.UserControls.ObjectNode">
 
-    <UserControl.Styles>
-        <Style Selector="StackPanel.objectNode TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        
-        <Style Selector="StackPanel.objectNode TextBox.value">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{StaticResource GreyColor}" />
-            <Setter Property="Height" Value="20" />
-            <Setter Property="MinHeight" Value="20" />
-            <Setter Property="MinWidth" Value="10" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="3 0" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="SelectionBrush" Value="{StaticResource SelectionBrush}" />
-            <!-- <Setter Property="SelectionForegroundBrush" Value="{StaticResource SelectionForegroundBrush}" /> -->
-        </Style>
-        <Style Selector="StackPanel.objectNode TextBox.value /template/ Border#PART_BorderElement">
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
-        <Style Selector="StackPanel.objectNode TextBox.value:pointerover /template/ Border#PART_BorderElement">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-    </UserControl.Styles>
-
     <Design.DataContext>
         <vm:ObjectNodeViewModel />
     </Design.DataContext>
@@ -43,8 +18,8 @@
             
                 <DockPanel IsVisible="{Binding !Empty}">
                     <TextBlock Classes="code bracket">{</TextBlock>
-                    <Button Command="{Binding OnExpandCommand}" IsVisible="{Binding Collapsed}" Classes="expandCollapseButton">+</Button>
-                    <Button Command="{Binding OnCollapseCommand}" IsVisible="{Binding !Collapsed}" Classes="expandCollapseButton">-</Button>
+                    <Button Command="{Binding ExpandCommand}" IsVisible="{Binding Collapsed}" Classes="expandCollapseButton">+</Button>
+                    <Button Command="{Binding CollapseCommand}" IsVisible="{Binding !Collapsed}" Classes="expandCollapseButton">-</Button>
                     
                     <DockPanel IsVisible="{Binding Collapsed}">
                         <TextBlock Classes="code bracket">}</TextBlock>

@@ -1,8 +1,8 @@
-﻿using ReactiveUI;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace JsonFormatter.ViewModels.UserControls;
 
-public class JsonPresenterViewModel : ViewModelBase
+public partial class JsonPresenterViewModel : ViewModelBase
 {
     public JsonPresenterViewModel()
     {
@@ -15,17 +15,9 @@ public class JsonPresenterViewModel : ViewModelBase
         this.json = json;
     }
     
+    [ObservableProperty]
     private bool empty;
-    public bool Empty
-    {
-        get => empty;
-        set => this.RaiseAndSetIfChanged(ref empty, value);
-    }
-    
+
+    [ObservableProperty]
     private ValueNodeViewModel json = new();
-    public ValueNodeViewModel Json
-    {
-        get => json;
-        set => this.RaiseAndSetIfChanged(ref json, value);
-    }
 }
