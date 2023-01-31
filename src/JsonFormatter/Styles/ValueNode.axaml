@@ -9,35 +9,35 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style Selector="Panel.valueNode TextBox.value">
+    <Style Selector="SelectableTextBlock.value">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource GreyColor}" />
         <Setter Property="Height" Value="20" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="MinWidth" Value="10" />
-        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="3 0" />
         <Setter Property="SelectionBrush" Value="{StaticResource SelectionBrush}" />
         <!-- <Setter Property="SelectionForegroundBrush" Value="{DynamicResource SelectionForegroundBrush}" /> -->
     </Style>
-    <Style Selector="Panel.valueNode TextBox.value /template/ Border#PART_BorderElement">
+    <Style Selector="SelectableTextBlock.value /template/ Border#PART_BorderElement">
         <Setter Property="BorderThickness" Value="0" />
     </Style>
-    <Style Selector="Panel.valueNode TextBox.value:pointerover /template/ Border#PART_BorderElement">
+    <Style Selector="SelectableTextBlock.value:pointerover /template/ Border#PART_BorderElement">
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    <Style Selector="Panel.valueNode TextBox.value:focus /template/ Border#PART_BorderElement">
+    <Style Selector="SelectableTextBlock.value:focus /template/ Border#PART_BorderElement">
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    <Style Selector="Panel.valueNode TextBox.nullValue">
+    <Style Selector="SelectableTextBlock.nullValue">
         <Setter Property="Foreground" Value="{StaticResource NullColor}" />
     </Style>
-    <Style Selector="Panel.valueNode TextBox.stringValue">
+    <Style Selector="SelectableTextBlock.stringValue">
         <Setter Property="Foreground" Value="{StaticResource StringColor}" />
     </Style>
-    <Style Selector="Panel.valueNode TextBox.numberValue">
+    <Style Selector="SelectableTextBlock.numberValue">
         <Setter Property="Foreground" Value="{StaticResource NumberColor}" />
     </Style>
-    <Style Selector="Panel.valueNode TextBox.boolValue">
+    <Style Selector="SelectableTextBlock.boolValue">
         <Setter Property="Foreground" Value="{StaticResource BooleanColor}" />
     </Style>
 

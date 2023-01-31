@@ -8,7 +8,7 @@ using JsonFormatter.Views;
 
 namespace JsonFormatter;
 
-public partial class App : Application
+public class App : Application
 {
     public override void Initialize()
     {

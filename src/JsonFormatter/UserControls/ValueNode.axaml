@@ -8,7 +8,7 @@
         <vm:ValueNodeViewModel />
     </Design.DataContext>
 
-    <Panel Classes="valueNode">
+    <Panel>
         <Border IsVisible="{Binding IsPrimitive}" Classes="row valueRow">
             <DockPanel Margin="{Binding Indentation}">
                 <DockPanel IsVisible="{Binding IsProperty}">
@@ -16,11 +16,15 @@
                     <TextBlock Text=": " Classes="code property" />
                 </DockPanel>
 
-                <TextBox IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased" Text="null" IsReadOnly="True" Classes="value nullValue" />
-                <TextBox IsVisible="{Binding IsStringValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding StringValue}" IsReadOnly="True" Classes="value stringValue" />
-                <TextBox IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding NumberValue}" IsReadOnly="True" Classes="value numberValue" />
-                <TextBox IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased" Text="{Binding BooleanValue}" IsReadOnly="True" Classes="value boolValue" />
-            
+                <SelectableTextBlock IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased"
+                                     Text="null" Classes="value nullValue" />
+                <SelectableTextBlock IsVisible="{Binding IsStringValue}" PointerReleased="TextBox_OnPointerReleased"
+                                     Text="{Binding StringValue}" Classes="value stringValue" />
+                <SelectableTextBlock IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased"
+                                     Text="{Binding NumberValue}" Classes="value numberValue" />
+                <SelectableTextBlock IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased"
+                                     Text="{Binding BooleanValue}" Classes="value boolValue" />
+
                 <TextBlock IsVisible="{Binding !Last}" Classes="code property">,</TextBlock>
             </DockPanel>
         </Border>

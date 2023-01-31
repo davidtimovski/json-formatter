@@ -23,7 +23,7 @@ public partial class ValueNode : UserControl
             return;
         }
         
-        var textBox = (TextBox)sender;
+        var textBox = (SelectableTextBlock)sender;
         textBox.SelectAll();
     }
 }

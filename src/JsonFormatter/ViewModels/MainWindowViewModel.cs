@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using JsonFormatter.ViewModels.UserControls;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using CommunityToolkit.Mvvm.ComponentModel;
+using JsonFormatter.ViewModels.UserControls;
 
 namespace JsonFormatter.ViewModels;
 

@@ -8,7 +8,7 @@
         <vm:ArrayNodeViewModel />
     </Design.DataContext>
 
-    <StackPanel Classes="arrayNode">
+    <StackPanel>
         <Border Classes="row">
             <DockPanel Margin="{Binding Indentation}">
                 <DockPanel IsVisible="{Binding IsProperty}">
@@ -28,7 +28,7 @@
                 </DockPanel>
                 
                 <DockPanel IsVisible="{Binding Empty}">
-                    <TextBox PointerReleased="TextBox_OnPointerReleased" IsReadOnly="True" Classes="value">[]</TextBox>
+                    <SelectableTextBlock PointerReleased="SelectableTextBlock_OnPointerReleased" Classes="value">[]</SelectableTextBlock>
                     <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
                 </DockPanel>
             </DockPanel>

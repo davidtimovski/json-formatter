@@ -16,14 +16,14 @@ public partial class ArrayNode : UserControl
         AvaloniaXamlLoader.Load(this);
     }
     
-    private void TextBox_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    private void SelectableTextBlock_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         if (sender == null)
         {
             return;
         }
         
-        var textBox = (TextBox)sender;
+        var textBox = (SelectableTextBlock)sender;
         textBox.SelectAll();
     }
 }

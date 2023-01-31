@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <LangVersion>11</LangVersion>
         <Nullable>enable</Nullable>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
@@ -16,6 +16,7 @@
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
+        <EmbeddedResource Include="Assets\Fonts\**" />
         <None Remove=".gitignore" />
     </ItemGroup>
     
@@ -45,10 +46,5 @@
         <DependentUpon>JsonViewer.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Include="Assets\Fonts\FiraCode-Regular.ttf" />
-        <EmbeddedResource Include="Assets\Fonts\MavenPro-Regular.ttf" />
     </ItemGroup>
 </Project>

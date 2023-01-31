@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using JsonFormatter.ViewModels;
 using Avalonia.Threading;
+using JsonFormatter.ViewModels;
 
 namespace JsonFormatter.Views;
 
@@ -12,7 +12,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         
         var input = this.FindControl<TextBox>("Input");
-        input.Watermark = "{ \"property': \"value\" }";
+        input.Watermark = "{ \"property\": \"value\" }";
         
         var formatButton = this.FindControl<Button>("FormatButton");
         formatButton.Click += FormatJson;
