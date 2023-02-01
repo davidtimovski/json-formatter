@@ -18,7 +18,7 @@ public partial class ArrayNodeViewModel : ViewModelBase
         if (propertyName != null)
         {
             isProperty = true;
-            this.propertyName = propertyName;
+            this.propertyName = $"{propertyName}: ";
         }
 
         if (items.Any())

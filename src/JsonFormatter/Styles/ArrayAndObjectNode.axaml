@@ -1,0 +1,25 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        
+        <Style Selector="TextBlock.bracket">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+        </Style>
+
+        <Style Selector="Button.expandCollapseButton">
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Background" Value="#262626" />
+                <Setter Property="Foreground" Value="#eee" />
+                <Setter Property="BorderBrush" Value="#5E6060" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="4 0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Style Selector="Button.expandCollapseButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="#363636" />
+                <Setter Property="BorderBrush" Value="#5E6060" />
+        </Style>
+        
+</Styles>

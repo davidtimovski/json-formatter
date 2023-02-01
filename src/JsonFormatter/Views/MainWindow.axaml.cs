@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using JsonFormatter.ViewModels;
@@ -25,7 +26,11 @@ public partial class MainWindow : Window
 
         Dispatcher.UIThread.Post(() =>
         {
-            vm.Format();
+            if (!vm.Format())
+            {
+                var inputWrap = this.FindControl<Control>("InputWrap");
+                FlyoutBase.ShowAttachedFlyout(inputWrap);
+            }
         }, DispatcherPriority.Background);
     }
 

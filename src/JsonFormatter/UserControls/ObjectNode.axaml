@@ -11,10 +11,7 @@
     <StackPanel>
         <Border Classes="row">
             <DockPanel Margin="{Binding Indentation}">
-                <DockPanel IsVisible="{Binding IsProperty}">
-                    <TextBlock Text="{Binding PropertyName}" Classes="code property" />
-                    <TextBlock Text=": " Classes="code property" />
-                </DockPanel>
+                <TextBlock IsVisible="{Binding IsProperty}" Text="{Binding PropertyName}" Classes="code property" />
             
                 <DockPanel IsVisible="{Binding !Empty}">
                     <TextBlock Classes="code bracket">{</TextBlock>

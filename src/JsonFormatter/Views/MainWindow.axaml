@@ -14,8 +14,7 @@
     </Design.DataContext>
     
     <Window.Styles>
-        <StyleInclude Source="/Styles/ArrayNode.axaml" />
-        <StyleInclude Source="/Styles/ObjectNode.axaml" />
+        <StyleInclude Source="/Styles/ArrayAndObjectNode.axaml" />
         <StyleInclude Source="/Styles/ValueNode.axaml" />
 
         <Style Selector="Border.container">
@@ -23,9 +22,6 @@
         </Style>
         
         <Style Selector="TextBlock.property">
-            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
-        </Style>
-        <Style Selector="TextBlock.bracket">
             <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
         </Style>
         
@@ -54,23 +50,6 @@
             <Setter Property="Background" Value="{StaticResource InvalidColor}" />
         </Style>
         
-        <Style Selector="Button.expandCollapseButton">
-            <Setter Property="Width" Value="20" />
-            <Setter Property="Height" Value="20" />
-            <Setter Property="Background" Value="#262626" />
-            <Setter Property="Foreground" Value="#eee" />
-            <Setter Property="BorderBrush" Value="#5E6060" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="4 0" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-        </Style>
-        <Style Selector="Button.expandCollapseButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#363636" />
-            <Setter Property="BorderBrush" Value="#5E6060" />
-        </Style>
-        
         <Style Selector="Border.row">
             <Setter Property="Height" Value="22" />
         </Style>
@@ -83,17 +62,51 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="20" />
         </Style>
+        
+        <Style Selector="Border.presenter">
+            <Setter Property="Background" Value="#262626" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        
+        <Style Selector="ScrollViewer.jsonWrap">
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        
+        <Style Selector="FlyoutPresenter.alert">
+            <Setter Property="MaxWidth" Value="1000" />
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Background" Value="{StaticResource InvalidColor}" />
+            <Setter Property="Foreground" Value="#eee" />
+            <Setter Property="Padding" Value="15 6" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="FontFamily" Value="{StaticResource MainFontFamily}" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
     </Window.Styles>
 
     <Border Classes="container">
         <Grid RowDefinitions="150 Auto *">
-            <TextBox Name="Input" Grid.Row="0" Text="{Binding Input}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes.invalid="{Binding InvalidInput}" Classes="input" />
-        
+            <Border Grid.Row="0" Name="InputWrap">
+                <TextBox Name="Input" Text="{Binding Input}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes.invalid="{Binding InvalidInput}" Classes="input" />
+                
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout FlyoutPresenterClasses="alert">
+                        <TextBlock Text="{Binding ErrorMessage}" />
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </Border>
+            
             <Border Grid.Row="1" Classes="formatButtonWrap">
                 <Button Name="FormatButton" Content="{Binding FormatButtonLabel}" IsEnabled="{Binding !FormatButtonDisabled}" />
             </Border>
-        
-            <local:JsonPresenter Grid.Row="2" DataContext="{Binding Presenter}" />
+            
+            <Border Grid.Row="2" Classes="presenter">
+                <ScrollViewer IsVisible="{Binding !Empty}" Classes="jsonWrap">
+                    <local:ValueNode DataContext="{Binding Json}" />
+                </ScrollViewer>
+            </Border>
         </Grid>
     </Border>
 

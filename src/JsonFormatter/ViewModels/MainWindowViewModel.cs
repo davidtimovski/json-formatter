@@ -9,42 +9,65 @@ namespace JsonFormatter.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    private int jsonNodeCount;
+    
     public MainWindowViewModel()
     {
         input = string.Empty;
         formatButtonLabel = "Format";
     }
-    
+
     public void StartFormatting()
     {
         FormatButtonDisabled = true;
-        Presenter = new JsonPresenterViewModel();
         InvalidInput = false;
         FormatButtonLabel = "Formatting..";
     }
     
-    public void Format()
+    public bool Format()
     {
         if (Input == string.Empty)
         {
+            Json = new ValueNodeViewModel();
             EndFormatting();
-            return;
+            return true;
+        }
+
+        if (Input.Length > Constants.MaxInputLength)
+        {
+            EndFormatting();
+            ErrorMessage = $"For performance and memory reasons I can't parse JSON over {Constants.MaxInputLength:n0} characters. Sorry!";
+            return false;
         }
 
         SanitizeInput();
 
+        var valid = true;
         try
         {
             var result = JsonNode.Parse(Input);
-            Presenter = new JsonPresenterViewModel(GetVm(result, 0));
+            var vm = ConstructViewModel(result, 0);
+            
+            if (jsonNodeCount > Constants.MaxNodeCount)
+            {
+                EndFormatting();
+                ErrorMessage = $"For performance and memory reasons I can't parse JSON with over {Constants.MaxNodeCount:n0} nodes. Sorry!";
+                return false;
+            }
+            
+            Json = vm;
             InvalidInput = false;
+            ErrorMessage = null;
         }
         catch
         {
             InvalidInput = true;
+            ErrorMessage = "Invalid JSON";
+            valid = false;
         }
 
         EndFormatting();
+        return valid;
     }
 
     private void EndFormatting()
@@ -65,8 +88,10 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private ValueNodeViewModel GetVm(JsonNode? value, short nesting, string? propertyName = null)
+    private ValueNodeViewModel ConstructViewModel(JsonNode? value, short nesting, string? propertyName = null)
     {
+        jsonNodeCount++;
+        
         if (value == null)
         {
             return new ValueNodeViewModel(nesting, propertyName);
@@ -74,12 +99,12 @@ public partial class MainWindowViewModel : ViewModelBase
 
         if (value is JsonArray jArray)
         {
-            return GetVmFromArray(jArray, nesting, propertyName);
+            return ConstructViewModelFromArray(jArray, nesting, propertyName);
         }
 
         if (value is JsonObject jObject)
         {
-            return GetVmFromObject(jObject, nesting, propertyName);
+            return ConstructViewModelFromObject(jObject, nesting, propertyName);
         }
 
         var jsonElement = value.GetValue<JsonElement>();
@@ -100,17 +125,17 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private ValueNodeViewModel GetVmFromArray(JsonArray array, short nesting, string? propertyName = null)
+    private ValueNodeViewModel ConstructViewModelFromArray(JsonArray array, short nesting, string? propertyName = null)
     {
         var itemNesting = (short)(nesting + 1);
-        var items = array.Select(x => GetVm(x, itemNesting)).ToList();
+        var items = array.Select(x => ConstructViewModel(x, itemNesting)).ToList();
         return new ValueNodeViewModel(new ArrayNodeViewModel(items, nesting, propertyName));
     }
 
-    private ValueNodeViewModel GetVmFromObject(JsonObject jObject, short nesting, string? propertyName = null)
+    private ValueNodeViewModel ConstructViewModelFromObject(JsonObject jObject, short nesting, string? propertyName = null)
     {
         var propNesting = (short)(nesting + 1);
-        var properties = jObject.Select(property => GetVm(property.Value, propNesting, property.Key)).ToList();
+        var properties = jObject.Select(property => ConstructViewModel(property.Value, propNesting, property.Key)).ToList();
         return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName));
     }
     
@@ -125,7 +150,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty]
     private bool invalidInput;
+    
+    [ObservableProperty]
+    private string? errorMessage;
+    
+    [ObservableProperty]
+    private bool empty;
 
     [ObservableProperty]
-    private JsonPresenterViewModel presenter = new();
+    private ValueNodeViewModel json = new();
 }

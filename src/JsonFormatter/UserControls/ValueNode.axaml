@@ -11,11 +11,8 @@
     <Panel>
         <Border IsVisible="{Binding IsPrimitive}" Classes="row valueRow">
             <DockPanel Margin="{Binding Indentation}">
-                <DockPanel IsVisible="{Binding IsProperty}">
-                    <TextBlock Text="{Binding PropertyName}" Classes="code property" />
-                    <TextBlock Text=": " Classes="code property" />
-                </DockPanel>
-
+                <TextBlock IsVisible="{Binding IsProperty}" Text="{Binding PropertyName}" Classes="code property" />
+                
                 <SelectableTextBlock IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased"
                                      Text="null" Classes="value nullValue" />
                 <SelectableTextBlock IsVisible="{Binding IsStringValue}" PointerReleased="TextBox_OnPointerReleased"

@@ -16,7 +16,7 @@ public partial class ValueNodeViewModel : ViewModelBase
         if (propertyName != null)
         {
             isProperty = true;
-            this.propertyName = propertyName;
+            this.propertyName = $"{propertyName}: ";
         }
         isNullValue = true;
         isPrimitive = true;
@@ -28,7 +28,7 @@ public partial class ValueNodeViewModel : ViewModelBase
         if (propertyName != null)
         {
             isProperty = true;
-            this.propertyName = propertyName;
+            this.propertyName = $"{propertyName}: ";
         }
         stringValue = $"\"{value}\"";
         isStringValue = true;
@@ -41,7 +41,7 @@ public partial class ValueNodeViewModel : ViewModelBase
         if (propertyName != null)
         {
             isProperty = true;
-            this.propertyName = propertyName;
+            this.propertyName = $"{propertyName}: ";
         }
         numberValue = value.ToString(CultureInfo.InvariantCulture);
         isNumberValue = true;
@@ -54,7 +54,7 @@ public partial class ValueNodeViewModel : ViewModelBase
         if (propertyName != null)
         {
             isProperty = true;
-            this.propertyName = propertyName;
+            this.propertyName = $"{propertyName}: ";
         }
         booleanValue = value ? "true" : "false";
         isBooleanValue = true;

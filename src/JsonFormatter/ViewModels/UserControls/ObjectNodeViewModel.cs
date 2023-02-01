@@ -18,7 +18,7 @@ public partial class ObjectNodeViewModel : ViewModelBase
         if (propertyName != null)
         {
             isProperty = true;
-            this.propertyName = propertyName;
+            this.propertyName = $"{propertyName}: ";
         }
 
         if (properties.Any())
