@@ -19,6 +19,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public void StartFormatting()
     {
+        jsonNodeCount = 0;
         FormatButtonDisabled = true;
         InvalidInput = false;
         FormatButtonLabel = "Formatting..";
@@ -36,7 +37,7 @@ public partial class MainWindowViewModel : ViewModelBase
         if (Input.Length > Constants.MaxInputLength)
         {
             EndFormatting();
-            ErrorMessage = $"For performance and memory reasons I can't parse JSON over {Constants.MaxInputLength:n0} characters. Sorry!";
+            ErrorMessage = $"For performance/memory reasons I can't render JSON over {Constants.MaxInputLength:n0} characters. Sorry!";
             return false;
         }
 
@@ -51,7 +52,7 @@ public partial class MainWindowViewModel : ViewModelBase
             if (jsonNodeCount > Constants.MaxNodeCount)
             {
                 EndFormatting();
-                ErrorMessage = $"For performance and memory reasons I can't parse JSON with over {Constants.MaxNodeCount:n0} nodes. Sorry!";
+                ErrorMessage = $"For performance/memory reasons I can't render JSON with over {Constants.MaxNodeCount:n0} nodes. Sorry!";
                 return false;
             }
             

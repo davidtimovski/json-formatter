@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using JsonFormatter.ViewModels;
 
@@ -10,7 +11,7 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
-        InitializeComponent();
+        AvaloniaXamlLoader.Load(this);
         
         var input = this.FindControl<TextBox>("Input");
         input.Watermark = "{ \"property\": \"value\" }";
