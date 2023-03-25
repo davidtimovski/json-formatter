@@ -12,6 +12,11 @@ public partial class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(short nesting, string? propertyName = null)
     {
+        if (nesting == 0)
+        {
+            last = true;
+        }
+        
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
@@ -24,6 +29,11 @@ public partial class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(string value, short nesting, string? propertyName = null)
     {
+        if (nesting == 0)
+        {
+            last = true;
+        }
+        
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
@@ -37,6 +47,11 @@ public partial class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(double value, short nesting, string? propertyName = null)
     {
+        if (nesting == 0)
+        {
+            last = true;
+        }
+        
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
@@ -50,6 +65,11 @@ public partial class ValueNodeViewModel : ViewModelBase
     
     public ValueNodeViewModel(bool value, short nesting, string? propertyName = null)
     {
+        if (nesting == 0)
+        {
+            last = true;
+        }
+        
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
@@ -61,16 +81,24 @@ public partial class ValueNodeViewModel : ViewModelBase
         isPrimitive = true;
     }
     
-    public ValueNodeViewModel(ArrayNodeViewModel value)
+    public ValueNodeViewModel(ArrayNodeViewModel value, short nesting)
     {
-        value.Last = last;
+        if (nesting == 0)
+        {
+            value.Last = true;
+        }
+
         arrayValue = value;
         isArrayValue = true;
     }
     
-    public ValueNodeViewModel(ObjectNodeViewModel value)
+    public ValueNodeViewModel(ObjectNodeViewModel value, short nesting)
     {
-        value.Last = last;
+        if (nesting == 0)
+        {
+            value.Last = true;
+        }
+
         objectValue = value;
         isObjectValue = true;
     }

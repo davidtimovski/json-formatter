@@ -130,14 +130,14 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         var itemNesting = (short)(nesting + 1);
         var items = array.Select(x => ConstructViewModel(x, itemNesting)).ToList();
-        return new ValueNodeViewModel(new ArrayNodeViewModel(items, nesting, propertyName));
+        return new ValueNodeViewModel(new ArrayNodeViewModel(items, nesting, propertyName), nesting);
     }
 
     private ValueNodeViewModel ConstructViewModelFromObject(JsonObject jObject, short nesting, string? propertyName = null)
     {
         var propNesting = (short)(nesting + 1);
         var properties = jObject.Select(property => ConstructViewModel(property.Value, propNesting, property.Key)).ToList();
-        return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName));
+        return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName), nesting);
     }
     
     [ObservableProperty]

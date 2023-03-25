@@ -13,7 +13,7 @@ public partial class ArrayNodeViewModel : ViewModelBase
     public ArrayNodeViewModel(List<ValueNodeViewModel> items, short nesting, string? propertyName = null)
     {
         _ = items ?? throw new ArgumentException(null, nameof(items));
-        
+
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
         if (propertyName != null)
         {
