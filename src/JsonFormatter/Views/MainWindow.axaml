@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JsonFormatter.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Json Formatter">
+        Title="JSON Formatter">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
