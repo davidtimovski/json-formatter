@@ -42,5 +42,9 @@
         <DependentUpon>ObjectNode.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="UserControls\Viewer.axaml.cs">
+        <DependentUpon>Viewer.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

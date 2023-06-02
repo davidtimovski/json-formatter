@@ -103,8 +103,8 @@
             </Border>
             
             <Border Grid.Row="2" Classes="presenter">
-                <ScrollViewer IsVisible="{Binding !Empty}" Classes="jsonWrap">
-                    <local:ValueNode DataContext="{Binding Json}" />
+                <ScrollViewer Classes="jsonWrap" MinHeight="600">
+                    <local:Viewer DataContext="{Binding Output}" />
                 </ScrollViewer>
             </Border>
         </Grid>

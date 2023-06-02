@@ -1,0 +1,21 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:JsonFormatter.ViewModels.UserControls"
+             xmlns:local="using:JsonFormatter.UserControls"
+             x:Class="JsonFormatter.UserControls.Viewer">
+    
+    <Design.DataContext>
+        <vm:ViewerViewModel />
+    </Design.DataContext>
+
+    <Border>
+        <ItemsControl Items="{Binding Lines}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:LineControl Line="{Binding}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Border>
+    
+</UserControl>
