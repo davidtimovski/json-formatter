@@ -23,7 +23,7 @@ public partial class ObjectNodeViewModel : ViewModelBase
 
         if (properties.Any())
         {
-            properties[^1].Last = true;
+            properties[^1].NotLast = false;
             
             foreach (var property in properties)
             {
@@ -64,7 +64,7 @@ public partial class ObjectNodeViewModel : ViewModelBase
     private string? propertyName;
 
     [ObservableProperty]
-    private bool last;
+    private bool notLast = true;
 
     public ObservableCollection<ValueNodeViewModel> Properties { get; set; } = new();
 }

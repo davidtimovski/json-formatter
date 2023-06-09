@@ -2,7 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:JsonFormatter.ViewModels.UserControls"
              xmlns:local="using:JsonFormatter.UserControls"
-             x:Class="JsonFormatter.UserControls.ValueNode">
+             xmlns:uc="clr-namespace:JsonFormatter.ViewModels.UserControls"
+             x:Class="JsonFormatter.UserControls.ValueNode"
+             x:DataType="uc:ValueNodeViewModel">
 
     <Design.DataContext>
         <vm:ValueNodeViewModel />
@@ -22,7 +24,7 @@
                 <SelectableTextBlock IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased"
                                      Text="{Binding BooleanValue}" Classes="value boolValue" />
 
-                <TextBlock IsVisible="{Binding !Last}" Classes="code property">,</TextBlock>
+                <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code property" />
             </DockPanel>
         </Border>
 

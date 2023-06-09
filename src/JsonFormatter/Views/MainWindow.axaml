@@ -4,10 +4,12 @@
         xmlns:local="using:JsonFormatter.UserControls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:JsonFormatter.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JsonFormatter.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="JSON Formatter">
+        Title="JSON Formatter"
+        x:DataType="viewModels:MainWindowViewModel">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -19,10 +21,6 @@
 
         <Style Selector="Border.container">
             <Setter Property="Padding" Value="15" />
-        </Style>
-        
-        <Style Selector="TextBlock.property">
-            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
         </Style>
         
         <Style Selector="TextBox.input">
@@ -89,7 +87,7 @@
     <Border Classes="container">
         <Grid RowDefinitions="150 Auto *">
             <Border Grid.Row="0" Name="InputWrap">
-                <TextBox Name="Input" Text="{Binding Input}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes.invalid="{Binding InvalidInput}" Classes="input" />
+                <TextBox Name="Input" Text="{Binding JsonInput}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes.invalid="{Binding InvalidInput}" Classes="input" />
                 
                 <FlyoutBase.AttachedFlyout>
                     <Flyout FlyoutPresenterClasses="alert">

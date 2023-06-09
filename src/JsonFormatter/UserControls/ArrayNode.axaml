@@ -2,7 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:JsonFormatter.ViewModels.UserControls"
              xmlns:local="using:JsonFormatter.UserControls"
-             x:Class="JsonFormatter.UserControls.ArrayNode">
+             xmlns:uc="clr-namespace:JsonFormatter.ViewModels.UserControls"
+             x:Class="JsonFormatter.UserControls.ArrayNode"
+             x:DataType="uc:ArrayNodeViewModel">
     
     <Design.DataContext>
         <vm:ArrayNodeViewModel />
@@ -20,19 +22,19 @@
                     
                     <DockPanel IsVisible="{Binding Collapsed}">
                         <TextBlock Classes="code bracket">]</TextBlock>
-                        <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
+                        <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code bracket" />
                     </DockPanel>
                 </DockPanel>
                 
                 <DockPanel IsVisible="{Binding Empty}">
                     <SelectableTextBlock PointerReleased="SelectableTextBlock_OnPointerReleased" Classes="value">[]</SelectableTextBlock>
-                    <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
+                    <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code bracket" />
                 </DockPanel>
             </DockPanel>
         </Border>
         
         <Panel IsVisible="{Binding !Empty}">
-            <ItemsControl Items="{Binding Items}" IsVisible="{Binding !Collapsed}">
+            <ItemsControl ItemsSource="{Binding Items}" IsVisible="{Binding !Collapsed}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:ValueNode DataContext="{Binding}" />
@@ -44,7 +46,7 @@
         <Border IsVisible="{Binding !Collapsed}" Classes="row">
             <DockPanel Margin="{Binding Indentation}">
                 <TextBlock Classes="code bracket">]</TextBlock>
-                <TextBlock IsVisible="{Binding !Last}" Classes="code bracket">,</TextBlock>
+                <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code bracket" />
             </DockPanel>
         </Border>
 

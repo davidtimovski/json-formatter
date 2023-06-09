@@ -23,7 +23,7 @@ public partial class ArrayNodeViewModel : ViewModelBase
 
         if (items.Any())
         {
-            items[^1].Last = true;
+            items[^1].NotLast = false;
 
             foreach (var item in items)
             {
@@ -64,7 +64,7 @@ public partial class ArrayNodeViewModel : ViewModelBase
     private string? propertyName;
 
     [ObservableProperty]
-    private bool last;
+    private bool notLast = true;
     
     public ObservableCollection<ValueNodeViewModel> Items { get; set; } = new();
 }

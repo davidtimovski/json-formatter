@@ -41,6 +41,9 @@
         <Style Selector="TextBlock.code">
             <Setter Property="FontFamily" Value="{StaticResource CodeFontFamily}" />
         </Style>
+        <Style Selector="TextBlock.property">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+        </Style>
         
         <Style Selector="Button">
             <Setter Property="Background" Value="#354F85" />

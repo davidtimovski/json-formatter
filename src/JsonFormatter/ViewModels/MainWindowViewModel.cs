@@ -10,10 +10,10 @@ namespace JsonFormatter.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     private int jsonNodeCount;
-    
+
     public MainWindowViewModel()
     {
-        input = string.Empty;
+        jsonInput = string.Empty;
         formatButtonLabel = "Format";
     }
 
@@ -24,20 +24,21 @@ public partial class MainWindowViewModel : ViewModelBase
         InvalidInput = false;
         FormatButtonLabel = "Formatting..";
     }
-    
+
     public bool Format()
     {
-        if (Input == string.Empty)
+        if (JsonInput == string.Empty)
         {
             Json = new ValueNodeViewModel();
             EndFormatting();
             return true;
         }
 
-        if (Input.Length > Constants.MaxInputLength)
+        if (JsonInput.Length > Constants.MaxInputLength)
         {
             EndFormatting();
-            ErrorMessage = $"For performance/memory reasons I can't render JSON over {Constants.MaxInputLength:n0} characters. Sorry!";
+            ErrorMessage =
+                $"For performance/memory reasons I can't render JSON over {Constants.MaxInputLength:n0} characters. Sorry!";
             return false;
         }
 
@@ -46,16 +47,17 @@ public partial class MainWindowViewModel : ViewModelBase
         var valid = true;
         try
         {
-            var result = JsonNode.Parse(Input);
+            var result = JsonNode.Parse(JsonInput);
             var vm = ConstructViewModel(result, 0);
-            
+
             if (jsonNodeCount > Constants.MaxNodeCount)
             {
                 EndFormatting();
-                ErrorMessage = $"For performance/memory reasons I can't render JSON with over {Constants.MaxNodeCount:n0} nodes. Sorry!";
+                ErrorMessage =
+                    $"For performance/memory reasons I can't render JSON with over {Constants.MaxNodeCount:n0} nodes. Sorry!";
                 return false;
             }
-            
+
             Json = vm;
             InvalidInput = false;
             ErrorMessage = null;
@@ -76,23 +78,23 @@ public partial class MainWindowViewModel : ViewModelBase
         FormatButtonLabel = "Format";
         FormatButtonDisabled = false;
     }
-    
+
     private void SanitizeInput()
     {
-        if (Input.StartsWith("\"") && Input.EndsWith("\""))
+        if (JsonInput.StartsWith("\"") && JsonInput.EndsWith("\""))
         {
-            Input = Input.Substring(1, Input.Length - 2);
+            JsonInput = JsonInput.Substring(1, JsonInput.Length - 2);
         }
-        else if (Input.StartsWith('\'') && Input.EndsWith('\''))
+        else if (JsonInput.StartsWith('\'') && JsonInput.EndsWith('\''))
         {
-            Input = Input.Substring(1, Input.Length - 2);
+            JsonInput = JsonInput.Substring(1, JsonInput.Length - 2);
         }
     }
 
     private ValueNodeViewModel ConstructViewModel(JsonNode? value, short nesting, string? propertyName = null)
     {
         jsonNodeCount++;
-        
+
         if (value == null)
         {
             return new ValueNodeViewModel(nesting, propertyName);
@@ -109,21 +111,15 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         var jsonElement = value.GetValue<JsonElement>();
-        switch (jsonElement.ValueKind)
+        return jsonElement.ValueKind switch
         {
-            case JsonValueKind.Null:
-                return new ValueNodeViewModel(nesting, propertyName);
-            case JsonValueKind.String:
-                return new ValueNodeViewModel(value.ToString(), nesting, propertyName);
-            case JsonValueKind.Number:
-                return new ValueNodeViewModel(double.Parse(value.ToString()), nesting, propertyName);
-            case JsonValueKind.True:
-                return new ValueNodeViewModel(true, nesting, propertyName);
-            case JsonValueKind.False:
-                return new ValueNodeViewModel(false, nesting, propertyName);
-            default:
-                throw new ArgumentException("Node value type not recognized");
-        }
+            JsonValueKind.Null => new ValueNodeViewModel(nesting, propertyName),
+            JsonValueKind.String => new ValueNodeViewModel(value.ToString(), nesting, propertyName),
+            JsonValueKind.Number => new ValueNodeViewModel(double.Parse(value.ToString()), nesting, propertyName),
+            JsonValueKind.True => new ValueNodeViewModel(true, nesting, propertyName),
+            JsonValueKind.False => new ValueNodeViewModel(false, nesting, propertyName),
+            _ => throw new ArgumentException("Node value type not recognized")
+        };
     }
 
     private ValueNodeViewModel ConstructViewModelFromArray(JsonArray array, short nesting, string? propertyName = null)
@@ -133,13 +129,15 @@ public partial class MainWindowViewModel : ViewModelBase
         return new ValueNodeViewModel(new ArrayNodeViewModel(items, nesting, propertyName), nesting);
     }
 
-    private ValueNodeViewModel ConstructViewModelFromObject(JsonObject jObject, short nesting, string? propertyName = null)
+    private ValueNodeViewModel ConstructViewModelFromObject(JsonObject jObject, short nesting,
+        string? propertyName = null)
     {
         var propNesting = (short)(nesting + 1);
-        var properties = jObject.Select(property => ConstructViewModel(property.Value, propNesting, property.Key)).ToList();
+        var properties = jObject.Select(property => ConstructViewModel(property.Value, propNesting, property.Key))
+            .ToList();
         return new ValueNodeViewModel(new ObjectNodeViewModel(properties, nesting, propertyName), nesting);
     }
-    
+
     [ObservableProperty]
     private bool formatButtonDisabled;
 
@@ -147,14 +145,14 @@ public partial class MainWindowViewModel : ViewModelBase
     private string formatButtonLabel;
 
     [ObservableProperty]
-    private string input;
+    private string jsonInput;
 
     [ObservableProperty]
     private bool invalidInput;
-    
+
     [ObservableProperty]
     private string? errorMessage;
-    
+
     [ObservableProperty]
     private bool empty;
 
