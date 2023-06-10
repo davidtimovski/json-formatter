@@ -14,7 +14,7 @@ public partial class ValueNodeViewModel : ViewModelBase
     {
         if (nesting == 0)
         {
-            notLast = false;
+            endsWithComma = false;
         }
 
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
@@ -32,7 +32,7 @@ public partial class ValueNodeViewModel : ViewModelBase
     {
         if (nesting == 0)
         {
-            notLast = false;
+            endsWithComma = false;
         }
 
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
@@ -51,7 +51,7 @@ public partial class ValueNodeViewModel : ViewModelBase
     {
         if (nesting == 0)
         {
-            notLast = false;
+            endsWithComma = false;
         }
 
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
@@ -70,7 +70,7 @@ public partial class ValueNodeViewModel : ViewModelBase
     {
         if (nesting == 0)
         {
-            notLast = false;
+            endsWithComma = false;
         }
 
         indentation = new Thickness(nesting * Constants.IndentationWidth, 0, 0, 0);
@@ -89,7 +89,8 @@ public partial class ValueNodeViewModel : ViewModelBase
     {
         if (nesting == 0)
         {
-            value.NotLast = false;
+            value.SetLast();
+            endsWithComma = false;
         }
 
         arrayValue = value;
@@ -100,7 +101,8 @@ public partial class ValueNodeViewModel : ViewModelBase
     {
         if (nesting == 0)
         {
-            notLast = false;
+            value.SetLast();
+            endsWithComma = false;
         }
 
         objectValue = value;
@@ -153,5 +155,5 @@ public partial class ValueNodeViewModel : ViewModelBase
     private ObjectNodeViewModel? objectValue;
 
     [ObservableProperty]
-    private bool notLast = true;
+    private bool endsWithComma = true;
 }

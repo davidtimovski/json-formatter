@@ -23,7 +23,7 @@ public partial class ArrayNodeViewModel : ViewModelBase
 
         if (items.Any())
         {
-            items[^1].NotLast = false;
+            items[^1].EndsWithComma = false;
 
             foreach (var item in items)
             {
@@ -33,6 +33,15 @@ public partial class ArrayNodeViewModel : ViewModelBase
         else
         {
             empty = collapsed = true;
+        }
+
+        if (empty)
+        {
+            emptyClosingSymbol = "[],";
+        }
+        else
+        {
+            fullClosingSymbol = "],";
         }
     }
 
@@ -62,9 +71,25 @@ public partial class ArrayNodeViewModel : ViewModelBase
 
     [ObservableProperty]
     private string? propertyName;
-
+    
     [ObservableProperty]
-    private bool notLast = true;
+    private string? emptyClosingSymbol;
+    
+    [ObservableProperty]
+    private string? fullClosingSymbol;
+
+    public void SetLast()
+    {
+        if (EmptyClosingSymbol != null)
+        {
+            EmptyClosingSymbol = "[]";
+        }
+            
+        if (FullClosingSymbol != null)
+        {
+            FullClosingSymbol = "]";
+        }
+    }
     
     public ObservableCollection<ValueNodeViewModel> Items { get; set; } = new();
 }

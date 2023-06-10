@@ -49,6 +49,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             var result = JsonNode.Parse(JsonInput);
             var vm = ConstructViewModel(result, 0);
+            vm.EndsWithComma = false;
 
             if (jsonNodeCount > Constants.MaxNodeCount)
             {

@@ -13,23 +13,26 @@
     <StackPanel>
         <Border Classes="row">
             <DockPanel Margin="{Binding Indentation}">
-                <TextBlock IsVisible="{Binding IsProperty}" Text="{Binding PropertyName}" Classes="code property" />
+                <TextBlock IsVisible="{Binding IsProperty}"
+                           Text="{Binding PropertyName, Mode=OneTime}"
+                           Classes="code property" />
             
                 <DockPanel IsVisible="{Binding !Empty}">
                     <TextBlock Classes="code bracket">[</TextBlock>
-                    <Button Command="{Binding ExpandCommand}" IsVisible="{Binding Collapsed}" Classes="expandCollapseButton">+</Button>
-                    <Button Command="{Binding CollapseCommand}" IsVisible="{Binding !Collapsed}" Classes="expandCollapseButton">-</Button>
                     
-                    <DockPanel IsVisible="{Binding Collapsed}">
-                        <TextBlock Classes="code bracket">]</TextBlock>
-                        <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code bracket" />
-                    </DockPanel>
+                    <Button Command="{Binding ExpandCommand}"
+                            IsVisible="{Binding Collapsed}"
+                            Classes="expandCollapseButton">+</Button>
+                    <Button Command="{Binding CollapseCommand}"
+                            IsVisible="{Binding !Collapsed}"
+                            Classes="expandCollapseButton">-</Button>
+                    
+                    <TextBlock Text="{Binding FullClosingSymbol, Mode=OneTime}"
+                               IsVisible="{Binding Collapsed}"
+                               Classes="code bracket" />
                 </DockPanel>
                 
-                <DockPanel IsVisible="{Binding Empty}">
-                    <SelectableTextBlock PointerReleased="SelectableTextBlock_OnPointerReleased" Classes="value">[]</SelectableTextBlock>
-                    <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code bracket" />
-                </DockPanel>
+                <TextBlock Text="{Binding EmptyClosingSymbol, Mode=OneTime}" Classes="code bracket" />
             </DockPanel>
         </Border>
         
@@ -45,8 +48,7 @@
         
         <Border IsVisible="{Binding !Collapsed}" Classes="row">
             <DockPanel Margin="{Binding Indentation}">
-                <TextBlock Classes="code bracket">]</TextBlock>
-                <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code bracket" />
+                <TextBlock Text="{Binding FullClosingSymbol, Mode=OneTime}" Classes="code bracket" />
             </DockPanel>
         </Border>
 

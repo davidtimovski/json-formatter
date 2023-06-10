@@ -13,18 +13,31 @@
     <Panel>
         <Border IsVisible="{Binding IsPrimitive}" Classes="row valueRow">
             <DockPanel Margin="{Binding Indentation}">
-                <TextBlock IsVisible="{Binding IsProperty}" Text="{Binding PropertyName}" Classes="code property" />
+                <TextBlock IsVisible="{Binding IsProperty}"
+                           Text="{Binding PropertyName, Mode=OneTime}"
+                           Classes="code property" />
                 
-                <SelectableTextBlock IsVisible="{Binding IsNullValue}" PointerReleased="TextBox_OnPointerReleased"
-                                     Text="null" Classes="value nullValue" />
-                <SelectableTextBlock IsVisible="{Binding IsStringValue}" PointerReleased="TextBox_OnPointerReleased"
-                                     Text="{Binding StringValue}" Classes="value stringValue" />
-                <SelectableTextBlock IsVisible="{Binding IsNumberValue}" PointerReleased="TextBox_OnPointerReleased"
-                                     Text="{Binding NumberValue}" Classes="value numberValue" />
-                <SelectableTextBlock IsVisible="{Binding IsBooleanValue}" PointerReleased="TextBox_OnPointerReleased"
-                                     Text="{Binding BooleanValue}" Classes="value boolValue" />
+                <SelectableTextBlock IsVisible="{Binding IsNullValue}"
+                                     PointerReleased="TextBox_OnPointerReleased"
+                                     Text="null"
+                                     Classes="value nullValue" />
+                
+                <SelectableTextBlock IsVisible="{Binding IsStringValue}"
+                                     PointerReleased="TextBox_OnPointerReleased"
+                                     Text="{Binding StringValue}"
+                                     Classes="value stringValue" />
+                
+                <SelectableTextBlock IsVisible="{Binding IsNumberValue}"
+                                     PointerReleased="TextBox_OnPointerReleased"
+                                     Text="{Binding NumberValue}"
+                                     Classes="value numberValue" />
+                
+                <SelectableTextBlock IsVisible="{Binding IsBooleanValue}"
+                                     PointerReleased="TextBox_OnPointerReleased"
+                                     Text="{Binding BooleanValue}"
+                                     Classes="value boolValue" />
 
-                <TextBlock Text="," IsVisible="{Binding NotLast}" Classes="code property" />
+                <TextBlock Text="," IsVisible="{Binding EndsWithComma}" Classes="code property" />
             </DockPanel>
         </Border>
 

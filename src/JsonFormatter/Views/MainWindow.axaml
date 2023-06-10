@@ -2,10 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:JsonFormatter.ViewModels"
         xmlns:local="using:JsonFormatter.UserControls"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:JsonFormatter.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JsonFormatter.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="JSON Formatter"
@@ -18,6 +15,11 @@
     <Window.Styles>
         <StyleInclude Source="/Styles/ArrayAndObjectNode.axaml" />
         <StyleInclude Source="/Styles/ValueNode.axaml" />
+        
+        <Style Selector="Window">
+            <Setter Property="Width" Value="700" />
+            <Setter Property="Height" Value="700" />
+        </Style>
 
         <Style Selector="Border.container">
             <Setter Property="Padding" Value="15" />
@@ -76,28 +78,33 @@
             <Setter Property="MinHeight" Value="20" />
             <Setter Property="Background" Value="{StaticResource InvalidColor}" />
             <Setter Property="Foreground" Value="#eee" />
-            <Setter Property="Padding" Value="15 6" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Padding" Value="18 6" />
+            <Setter Property="Margin" Value="0 5 0 0" />
             <Setter Property="FontFamily" Value="{StaticResource MainFontFamily}" />
             <Setter Property="FontSize" Value="15" />
         </Style>
     </Window.Styles>
 
     <Border Classes="container">
-        <Grid RowDefinitions="150 Auto *">
+        <Grid RowDefinitions="80 Auto *">
             <Border Grid.Row="0" Name="InputWrap">
-                <TextBox Name="Input" Text="{Binding JsonInput}" PastingFromClipboard="Input_OnPastingFromClipboard" Classes.invalid="{Binding InvalidInput}" Classes="input" />
+                <TextBox Name="Input"
+                         Text="{Binding JsonInput}"
+                         PastingFromClipboard="Input_OnPastingFromClipboard"
+                         Classes.invalid="{Binding InvalidInput}"
+                         Classes="input" />
                 
                 <FlyoutBase.AttachedFlyout>
-                    <Flyout FlyoutPresenterClasses="alert">
-                        <TextBlock Text="{Binding ErrorMessage}" />
-                    </Flyout>
+                    <Flyout Placement="BottomEdgeAlignedRight"
+                            Content="{Binding ErrorMessage}"
+                            FlyoutPresenterClasses="alert" />
                 </FlyoutBase.AttachedFlyout>
             </Border>
             
             <Border Grid.Row="1" Classes="formatButtonWrap">
-                <Button Name="FormatButton" Content="{Binding FormatButtonLabel}" IsEnabled="{Binding !FormatButtonDisabled}" />
+                <Button Name="FormatButton"
+                        Content="{Binding FormatButtonLabel}"
+                        IsEnabled="{Binding !FormatButtonDisabled}" />
             </Border>
             
             <Border Grid.Row="2" Classes="presenter">

@@ -23,7 +23,7 @@ public partial class ObjectNodeViewModel : ViewModelBase
 
         if (properties.Any())
         {
-            properties[^1].NotLast = false;
+            properties[^1].EndsWithComma = false;
             
             foreach (var property in properties)
             {
@@ -33,6 +33,15 @@ public partial class ObjectNodeViewModel : ViewModelBase
         else
         {
             empty = collapsed = true;
+        }
+        
+        if (empty)
+        {
+            emptyClosingSymbol = "{}";
+        }
+        else
+        {
+            fullClosingSymbol = "}";
         }
     }
     
@@ -62,9 +71,25 @@ public partial class ObjectNodeViewModel : ViewModelBase
 
     [ObservableProperty]
     private string? propertyName;
-
+    
     [ObservableProperty]
-    private bool notLast = true;
+    private string? emptyClosingSymbol;
+    
+    [ObservableProperty]
+    private string? fullClosingSymbol;
 
+    public void SetLast()
+    {
+        if (EmptyClosingSymbol != null)
+        {
+            EmptyClosingSymbol = "{}";
+        }
+            
+        if (FullClosingSymbol != null)
+        {
+            FullClosingSymbol = "}";
+        }
+    }
+    
     public ObservableCollection<ValueNodeViewModel> Properties { get; set; } = new();
 }
