@@ -9,14 +9,14 @@ public partial class ValueNode : UserControl
     {
         InitializeComponent();
     }
-    
+
     private void TextBox_OnPointerReleased(object? sender, PointerReleasedEventArgs _)
     {
-        if (sender == null)
+        if (sender is null)
         {
             return;
         }
-        
+
         var textBox = (SelectableTextBlock)sender;
         textBox.SelectAll();
     }

@@ -7,7 +7,7 @@ using JsonFormatter.ViewModels.UserControls;
 
 namespace JsonFormatter.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ObservableObject
 {
     private int jsonNodeCount;
 
@@ -96,7 +96,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         jsonNodeCount++;
 
-        if (value == null)
+        if (value is null)
         {
             return new ValueNodeViewModel(nesting, propertyName);
         }

@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace JsonFormatter.ViewModels.UserControls;
 
-public partial class ValueNodeViewModel : ViewModelBase
+public partial class ValueNodeViewModel : ObservableObject
 {
     public ValueNodeViewModel()
     {

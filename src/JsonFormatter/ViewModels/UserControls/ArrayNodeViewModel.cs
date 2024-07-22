@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace JsonFormatter.ViewModels.UserControls;
 
-public partial class ArrayNodeViewModel : ViewModelBase
+public partial class ArrayNodeViewModel : ObservableObject
 {
     public ArrayNodeViewModel(List<ValueNodeViewModel> items, short nesting, string? propertyName = null)
     {
@@ -21,7 +20,11 @@ public partial class ArrayNodeViewModel : ViewModelBase
             this.propertyName = $"{propertyName}: ";
         }
 
-        if (items.Any())
+        if (items.Count == 0)
+        {
+            empty = collapsed = true;
+        }
+        else
         {
             items[^1].EndsWithComma = false;
 
@@ -29,10 +32,6 @@ public partial class ArrayNodeViewModel : ViewModelBase
             {
                 Items.Add(item);
             }
-        }
-        else
-        {
-            empty = collapsed = true;
         }
 
         if (empty)
@@ -56,7 +55,7 @@ public partial class ArrayNodeViewModel : ViewModelBase
     {
         Collapsed = false;
     }
-    
+
     [ObservableProperty]
     private bool empty;
 
@@ -71,10 +70,10 @@ public partial class ArrayNodeViewModel : ViewModelBase
 
     [ObservableProperty]
     private string? propertyName;
-    
+
     [ObservableProperty]
     private string? emptyClosingSymbol;
-    
+
     [ObservableProperty]
     private string? fullClosingSymbol;
 
@@ -84,12 +83,12 @@ public partial class ArrayNodeViewModel : ViewModelBase
         {
             EmptyClosingSymbol = "[]";
         }
-            
+
         if (FullClosingSymbol != null)
         {
             FullClosingSymbol = "]";
         }
     }
-    
-    public ObservableCollection<ValueNodeViewModel> Items { get; set; } = new();
+
+    public ObservableCollection<ValueNodeViewModel> Items { get; set; } = [];
 }

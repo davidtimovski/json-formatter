@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using JsonFormatter.Views;
 using JsonFormatter.ViewModels;
+using JsonFormatter.Views;
 
 namespace JsonFormatter;
 
