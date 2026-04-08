@@ -3,7 +3,7 @@ using Avalonia;
 
 namespace JsonFormatter;
 
-class Program
+internal sealed class Program
 {
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -16,5 +16,8 @@ class Program
     private static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
+#if DEBUG
+                .WithDeveloperTools()
+#endif
             .LogToTrace();
 }

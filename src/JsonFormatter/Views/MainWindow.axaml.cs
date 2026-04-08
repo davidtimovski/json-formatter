@@ -12,7 +12,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
-        Input.Watermark = "{ \"property\": \"value\" }";
+        Input.PlaceholderText = "{ \"property\": \"value\" }";
         FormatButton.Click += FormatJson;
     }
 

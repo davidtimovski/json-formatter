@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
@@ -10,11 +10,11 @@
 		<BuiltInComInteropSupport>false</BuiltInComInteropSupport>
 		<TrimMode>link</TrimMode>
         <Product>JSON Formatter</Product>
-        <Copyright>Copyright © David Timovski 2025</Copyright>
+        <Copyright>Copyright © David Timovski 2026</Copyright>
         <Company>David Timovski</Company>
-        <AssemblyVersion>0.3.0</AssemblyVersion>
-        <FileVersion>0.3.0</FileVersion>
-        <Version>0.3.0</Version>
+        <AssemblyVersion>0.4.0</AssemblyVersion>
+        <FileVersion>0.4.0</FileVersion>
+        <Version>0.4.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,12 +24,14 @@
     </ItemGroup>
     
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.2.3" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.3" />
+        <PackageReference Include="Avalonia" Version="12.0.0" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.0" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.0">
+			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+		</PackageReference>
     </ItemGroup>
 
 	<ItemGroup>
