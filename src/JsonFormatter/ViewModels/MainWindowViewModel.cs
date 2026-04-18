@@ -20,7 +20,7 @@ public partial class MainWindowViewModel : ObservableObject
     public void StartFormatting()
     {
         jsonNodeCount = 0;
-        FormatButtonDisabled = true;
+        FormatButtonIsEnabled = false;
         InvalidInput = false;
         FormatButtonLabel = "Formatting..";
     }
@@ -77,7 +77,7 @@ public partial class MainWindowViewModel : ObservableObject
     private void EndFormatting()
     {
         FormatButtonLabel = "Format";
-        FormatButtonDisabled = false;
+        FormatButtonIsEnabled = true;
     }
 
     private void SanitizeInput()
@@ -140,7 +140,7 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private bool formatButtonDisabled;
+    private bool formatButtonIsEnabled;
 
     [ObservableProperty]
     private string formatButtonLabel;

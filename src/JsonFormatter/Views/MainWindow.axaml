@@ -104,7 +104,7 @@
             <Border Grid.Row="1" Classes="formatButtonWrap">
                 <Button Name="FormatButton"
                         Content="{Binding FormatButtonLabel}"
-                        IsEnabled="{Binding !FormatButtonDisabled}" />
+                        IsEnabled="{Binding FormatButtonIsEnabled}" />
             </Border>
             
             <Border Grid.Row="2" Classes="presenter">
